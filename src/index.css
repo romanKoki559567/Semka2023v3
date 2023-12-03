@@ -1,13 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.homePage {
+	background-image: url("/src/images/bgDesign.png");
+	background-size: cover;
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+}
+
+.lavy-nav {
+	padding-top: 55px;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
+
+	padding-left: 30px;
+	width: 25rem;
+	height: 100%;
+}
+
+.nav-button {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.pravy-content {
+	width: 100vw;
+	height: 100vh;
+}
+
+.user-button {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	margin-top: auto;
+}
+
+.hlavicka {
+	display: flex;
+	justify-content: end;
+	z-index: 99;
+	width: 100%;
+	height: 100px;
+	gap: 20px;
+}
+
+.hlav-button {
+	display: flex;
+	align-items: center;
+	width: 300px;
+	gap: 10px;
+}
+
+.hlav-button img {
+	width: 15px;
+	height: 15px;
+}
+
+.group-cont {
+	padding: 25px;
+}
+
+.main-content {
+	width: 80%;
+	height: 85%;
+}
+
+.modely {
+	height: 30rem;
+	width: 100%;
+	gap: 15px;
+	display: flex;
+	margin-bottom: 15px;
+}
+
+.item1 {
+	background-color: white;
+	width: 80%;
+	border-radius: 25px;
+	padding: 25px;
+}
+
+.item2 {
+	background-color: white;
+	width: 20%;
+	padding: 25px;
+
+	border-radius: 25px;
+}
+
+.item3 {
+	background-color: white;
+	height: 100px;
+	padding: 25px;
+
+	border-radius: 25px;
+
+	grid-column: span 2;
 }

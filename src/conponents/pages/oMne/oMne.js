@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import Nav from "../../utils/nav";
 import Hlavicka from "../../utils/hlavicka";
-import Content from "./content";
 
-const Home = () => {
+const OMne = () => {
 	return (
 		<div className="homePage">
 			<Nav />
 
 			<div className="pravy-content">
 				<Hlavicka />
-				<Content />
+				<span> OMne </span>
 			</div>
 		</div>
 	);
 };
-export default Home;
+export default OMne;
