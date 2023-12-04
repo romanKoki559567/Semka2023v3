@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -24,25 +20,25 @@ code {
 }
 
 .lavy-nav {
-	padding-top: 55px;
 	gap: 10px;
 	display: flex;
 	flex-direction: column;
-
 	padding-left: 30px;
 	width: 25rem;
 	height: 100%;
+}
+
+.hlav-button {
+	display: flex;
+	align-items: center;
+	width: 300px;
+	gap: 10px;
 }
 
 .nav-button {
 	display: flex;
 	align-items: center;
 	gap: 20px;
-}
-
-.pravy-content {
-	width: 100vw;
-	height: 100vh;
 }
 
 .user-button {
@@ -61,11 +57,9 @@ code {
 	gap: 20px;
 }
 
-.hlav-button {
-	display: flex;
-	align-items: center;
-	width: 300px;
-	gap: 10px;
+.pravy-content {
+	width: 100vw;
+	height: 100vh;
 }
 
 .hlav-button img {
@@ -73,12 +67,8 @@ code {
 	height: 15px;
 }
 
-.group-cont {
-	padding: 25px;
-}
-
 .main-content {
-	width: 80%;
+	margin-right: 2rem;
 	height: 85%;
 }
 
@@ -107,10 +97,98 @@ code {
 
 .item3 {
 	background-color: white;
-	height: 100px;
+	height: 20px;
 	padding: 25px;
-
 	border-radius: 25px;
-
 	grid-column: span 2;
+}
+
+.container-log {
+	flex-direction: column;
+	margin: auto;
+	width: 50%;
+	height: 60%;
+	background: white;
+	padding: 30px 30px;
+	overflow-y: auto;
+}
+
+.header-log {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 9px;
+	width: 100%;
+}
+
+.text {
+	color: cornflowerblue;
+	font-size: 25px;
+	font-weight: 700;
+}
+
+.underline {
+	width: 61px;
+	height: 3px;
+	background-color: blue;
+	border-radius: 9px;
+}
+
+.inputs {
+	margin-top: 25px;
+	display: flex;
+	flex-direction: column;
+}
+
+.input {
+	display: flex;
+	align-items: center;
+	margin: auto;
+	width: 100%;
+	height: 50px;
+	background: deepskyblue;
+	border-radius: 6px;
+}
+
+.input img {
+	margin: 0px 30px;
+}
+
+.input input {
+	height: 50px;
+	width: 400px;
+	background: transparent;
+	border: none;
+	outline: none;
+	color: #797979;
+	font-size: 18px;
+}
+
+.forgot-password {
+	padding-left: 62px;
+	margin-top: 27px;
+	color: #797979;
+	font-size: 12px;
+}
+
+.forgot-password span {
+	color: blueviolet;
+	cursor: pointer;
+}
+
+.submit-container {
+	display: flex;
+	gap: 30px;
+}
+
+.submit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 220px;
+	height: 59px;
+	color: rgb(5, 255, 176);
+	font-size: 19px;
+	font-weight: 700;
+	cursor: pointer;
 }

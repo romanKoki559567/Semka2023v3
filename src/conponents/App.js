@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "../conponents/pages/home/home";
 import Login from "../conponents/pages/login/login";
@@ -8,6 +9,7 @@ import OMne from "../conponents/pages/oMne/oMne";
 import Projekty from "../conponents/pages/projekty/projekty";
 import Technologie from "../conponents/pages/technologie/technologie";
 import Nastavenia from "../conponents/pages/nastavenia/nastavenia";
+import Signup from "../conponents/pages/signup/signup";
 
 // tuto sa vkladajú iba stránky cez ktoré sa bude preklikávať
 
@@ -22,6 +24,7 @@ function App() {
 				<Route path="/projekty" element={<Projekty />} />
 				<Route path="/technologie" element={<Technologie />} />
 				<Route path="/nastavenia-uctu" element={<Nastavenia />} />
+				<Route path="/signup" element={<Signup />} />
 			</Routes>
 		</div>
 	);

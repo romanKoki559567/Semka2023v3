@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../../utils/nav";
 import Hlavicka from "../../utils/hlavicka";
+import New from "../new/new";
 
 const Nastavenia = () => {
 	return (
@@ -9,7 +10,7 @@ const Nastavenia = () => {
 
 			<div className="pravy-content">
 				<Hlavicka />
-				<span> Nastavenia </span>
+				<New />
 			</div>
 		</div>
 	);
