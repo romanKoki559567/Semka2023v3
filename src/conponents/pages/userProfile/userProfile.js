@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../../utils/nav";
 import Hlavicka from "../../utils/hlavicka";
+import Log from "../../pages/login/login";
 
 const UserProfile = () => {
 	return (
@@ -9,7 +10,7 @@ const UserProfile = () => {
 
 			<div className="pravy-content">
 				<Hlavicka />
-				<span> UserProfile </span>
+				<Log />
 			</div>
 		</div>
 	);

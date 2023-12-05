@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../../utils/nav";
 import Hlavicka from "../../utils/hlavicka";
-import Comp from "./comp";
+import Comp from "./compSig";
 
 const Signup = () => {
 	return (

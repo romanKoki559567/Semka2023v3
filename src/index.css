@@ -17,6 +17,13 @@ code {
 	height: 100vh;
 
 	display: flex;
+	overflow-x: hidden;
+}
+.link {
+	text-decoration: none;
+	color: #0c0c0d;
+	font-weight: 500;
+	font-size: 1.1rem;
 }
 
 .lavy-nav {
@@ -26,35 +33,59 @@ code {
 	padding-left: 30px;
 	width: 25rem;
 	height: 100%;
-}
-
-.hlav-button {
-	display: flex;
-	align-items: center;
-	width: 300px;
-	gap: 10px;
+	padding-top: 2rem;
 }
 
 .nav-button {
 	display: flex;
 	align-items: center;
-	gap: 20px;
+	gap: 1.2rem;
+	padding: 0.5rem 0;
+	margin: 0.5rem 0rem;
+	padding-left: 0.7rem;
+	margin-right: 2rem;
+	border: 1px solid transparent;
+	border-radius: 10px;
+}
+.nav-button:hover {
+	border: 1px solid #7b7b7b;
+
+	color: #1a2b88;
+	background-color: #ffffff;
+	transition: 0.5s all;
+}
+.nav-line {
+	width: 13rem;
+	height: 2px;
+	background-color: #1a2b88;
+	margin: 1rem 0;
+	margin-left: 0.8rem;
 }
 
 .user-button {
 	display: flex;
 	align-items: center;
-	gap: 20px;
+	gap: 0.8rem;
 	margin-top: auto;
+	text-decoration: none;
+	color: #0c0c0d;
+	font-weight: 500;
+	font-size: 1.1rem;
+	margin-bottom: 0.5rem;
 }
 
 .hlavicka {
 	display: flex;
 	justify-content: end;
 	z-index: 99;
-	width: 100%;
+	margin-right: 2rem;
 	height: 100px;
-	gap: 20px;
+	gap: 1.5rem;
+}
+
+.hlav-button {
+	display: flex;
+	align-items: center;
 }
 
 .pravy-content {
@@ -70,10 +101,11 @@ code {
 .main-content {
 	margin-right: 2rem;
 	height: 85%;
+	flex-wrap: wrap;
 }
 
 .modely {
-	height: 30rem;
+	height: 18rem;
 	width: 100%;
 	gap: 15px;
 	display: flex;
@@ -82,113 +114,121 @@ code {
 
 .item1 {
 	background-color: white;
-	width: 80%;
+	width: 75%;
 	border-radius: 25px;
 	padding: 25px;
+	box-shadow: 5px 5px 39px 0px rgba(0, 0, 0, 0.25);
+}
+.item1 > svg {
+	width: 100%;
+	height: 80%;
 }
 
 .item2 {
 	background-color: white;
-	width: 20%;
-	padding: 25px;
+	width: 25%;
+	padding: 1.4rem;
 
 	border-radius: 25px;
+	text-align: center;
+	box-shadow: 5px 5px 39px 0px rgba(0, 0, 0, 0.25);
+}
+.title {
+	font-size: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+.metrika {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.skills > .metrika > p {
+	font-size: 0.9rem;
+	margin: 0rem 0;
+}
+.skills > .metrika > p:nth-child(1) {
+	margin-right: 7rem;
+}
+
+.skills > .metrika {
+	margin: 0.5rem 0;
 }
 
 .item3 {
 	background-color: white;
-	height: 20px;
-	padding: 25px;
+	width: 25%;
 	border-radius: 25px;
-	grid-column: span 2;
+	padding: 25px;
+	box-shadow: 5px 5px 39px 0px rgba(0, 0, 0, 0.25);
+	text-align: center;
 }
 
-.container-log {
-	flex-direction: column;
-	margin: auto;
-	width: 50%;
-	height: 60%;
-	background: white;
-	padding: 30px 30px;
-	overflow-y: auto;
+.profile-photo {
+	width: 60%;
 }
 
-.header-log {
+.item4 {
+	background-color: white;
+	width: 75%;
+	border-radius: 25px;
+	padding: 25px;
+	box-shadow: 5px 5px 39px 0px rgba(0, 0, 0, 0.25);
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 9px;
+	justify-content: space-between;
+}
+.item4 > .about-me > p {
+	font-size: 0.8rem;
+	width: 50ch;
+}
+
+.line {
 	width: 100%;
+	height: 2px;
+	background-color: #1a2b88;
+	margin-bottom: 0.5rem;
 }
 
-.text {
-	color: cornflowerblue;
-	font-size: 25px;
-	font-weight: 700;
+.vertical-line {
+	height: 100%;
+	width: 1.5px;
+	background-color: #1a2b88;
+	margin: 0 0.2rem;
 }
 
-.underline {
-	width: 61px;
-	height: 3px;
-	background-color: blue;
-	border-radius: 9px;
-}
 
-.inputs {
-	margin-top: 25px;
-	display: flex;
-	flex-direction: column;
-}
+@media only screen and (max-width: 768px) {
+	.main-content {
+		margin-right: 0;
+	}
 
-.input {
-	display: flex;
-	align-items: center;
-	margin: auto;
-	width: 100%;
-	height: 50px;
-	background: deepskyblue;
-	border-radius: 6px;
-}
+	.modely {
+		flex-direction: column;
+	}
 
-.input img {
-	margin: 0px 30px;
-}
+	.item1,
+	.item2,
+	.item3,
+	.item4 {
+		width: 100%;
+		margin-bottom: 15px;
+	}
 
-.input input {
-	height: 50px;
-	width: 400px;
-	background: transparent;
-	border: none;
-	outline: none;
-	color: #797979;
-	font-size: 18px;
-}
+	.item1 > svg {
+		height: 50%;
+	}
 
-.forgot-password {
-	padding-left: 62px;
-	margin-top: 27px;
-	color: #797979;
-	font-size: 12px;
-}
+	.profile-photo {
+		width: 100%;
+	}
 
-.forgot-password span {
-	color: blueviolet;
-	cursor: pointer;
-}
+	.item4 {
+		flex-direction: column;
+	}
 
-.submit-container {
-	display: flex;
-	gap: 30px;
-}
-
-.submit {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 220px;
-	height: 59px;
-	color: rgb(5, 255, 176);
-	font-size: 19px;
-	font-weight: 700;
-	cursor: pointer;
+	.item4 > .about-me > p {
+		width: 100%;
+	}
 }

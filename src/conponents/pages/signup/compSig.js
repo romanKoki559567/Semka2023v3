@@ -1,31 +1,41 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Validation from "./singupValidation";
+import axios from "axios";
 
 const Comp = () => {
 	const [values, setValues] = React.useState({
 		name: "",
 		email: "",
 		password: "",
-		passwordRepet: "",
-		bDate: ""
+		bDate: "",
 	});
 
+	const navigate = useNavigate();
 	const [errors, setErrors] = React.useState({});
 
 	const handleInput = (event) => {
 		setValues((prev) => ({ ...prev, [event.target.name]: [event.target.value] }));
 	};
 
-	console.log(values)
-
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
+		console.log("spuštam 'handleSubmit' sing", values);
 		event.preventDefault();
 		setErrors(Validation(values));
+
+		try {
+			await axios.post("http://localhost:8081/signup", values);
+		} catch (error) {
+			console.error("CHyba pri vkladaní", error);
+		}
+	};
+
+	const funTest = () => {
+		return true;
 	};
 
 	return (
-		<div className="d-flex justify-content-center align-items-center bg-dark vh-100">
+		<div className="d-flex justify-content-center align-items-center">
 			<div className="bg-white p-3 rounded w-25">
 				<h2>Sign-Up</h2>
 				<form action="" onSubmit={handleSubmit}>
@@ -54,32 +64,20 @@ const Comp = () => {
 					</div>
 
 					<div className="mb-3">
-						<label htmlFor="password-repet">
-							<strong>Over heslo</strong>
-						</label>
-						<input
-							type="password"
-							placeholder="Zopakuj heslo"
-							className="form-control rounded-0"
-							name="passwordRepet"
-							onChange={handleInput}
-						></input>
-						{errors.passwordRepet && <span className="text-danger">{errors.passwordRepet}</span>}
-					</div>
-
-					<div className="mb-3">
-						<label htmlFor="">
+						<label htmlFor="bDate">
 							<strong>Dátum Narodenia</strong>{" "}
 						</label>
 						<input type="date" className="form-control rounded-0" name="bDate" onChange={handleInput}></input>
 						{errors.date && <span className="text-danger">{errors.date}</span>}
 					</div>
 
-					<button className="btn btn-success w-30 rounded-0">
-						<strong>Sign un</strong>
+					<button disabled={!funTest()} className="btn btn-success w-30 rounded-0">
+						<strong>Signup</strong>
 					</button>
 					<Link to="/">
-						<button type="submit" className="btn btn-default border w-100 rounded-0">Login</button>
+						<button type="submit" className="btn btn-default border w-100 rounded-0 ">
+							Login
+						</button>
 					</Link>
 				</form>
 			</div>

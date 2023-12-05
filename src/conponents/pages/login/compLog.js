@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Validation from "./loginValidation";
 
-
-const New = () => {
+const CompLog = () => {
 	const [values, setValues] = React.useState({
 		email: "",
 		password: "",
 	});
 
-	const [errors, setErrors] = React.useState({})
+	const [errors, setErrors] = React.useState({});
 
 	const handleInput = (event) => {
-		setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+		setValues((prev) => ({ ...prev, [event.target.name]: [event.target.value] }));
 	};
 
 	const handleSubmit = (event) => {
@@ -21,7 +20,7 @@ const New = () => {
 	};
 
 	return (
-		<div className="d-flex justify-content-center align-items-center bg-dark vh-100">
+		<div className="d-flex justify-content-center align-items-center">
 			<div className="bg-white p-3 rounded w-25">
 				<form action="" onSubmit={handleSubmit}>
 					<div className="mb-3">
@@ -52,4 +51,4 @@ const New = () => {
 	);
 };
 
-export default New;
+export default CompLog;

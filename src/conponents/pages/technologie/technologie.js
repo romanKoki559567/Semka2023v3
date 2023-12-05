@@ -1,22 +1,17 @@
-function Validation(values) {
-	let error = {};
-	const email_pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+import React, { useState } from "react";
+import Nav from "../../utils/nav";
+import Hlavicka from "../../utils/hlavicka";
 
-	if (values.email === "") {
-		error.email = "Zabudli ste vyplniť email";
-	} else if (!email_pattern.test(values.email)) {
-		error.email = "Neplstný email";
-	} else {
-		error.email = "";
-	}
+const Technologie = () => {
+	return (
+		<div className="homePage">
+			<Nav />
 
-	if (values.password === "") {
-		error.password = "Zabudli ste vyplniť heslo";
-	} else {
-		error.password = "";
-	}
-
-	return error;
-}
-
-export default Validation;
+			<div className="pravy-content">
+				<Hlavicka />
+				<span> Technologie </span>
+			</div>
+		</div>
+	);
+};
+export default Technologie;
