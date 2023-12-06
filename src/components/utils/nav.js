@@ -43,7 +43,7 @@ const Nav = () => {
 				});
 				setValues(response.data);
 			} catch (error) {
-				console.error("Error fetching user data", error);
+				//console.error("Error fetching user data", error);
 			}
 		};
 

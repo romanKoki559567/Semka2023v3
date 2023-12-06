@@ -4,6 +4,7 @@ import Validation from "./loginValidation";
 import axios from "axios";
 
 const CompLog = () => {
+	const isAuthenticated = !!localStorage.getItem("token");
 	const [success, setSuccess] = React.useState(false);
 	const [values, setValues] = React.useState({
 		email: "",
@@ -36,7 +37,7 @@ const CompLog = () => {
 
 	return (
 		<>
-			{success ? (
+			{isAuthenticated ? (
 				<section>
 					<Navigate to="/" />
 				</section>

@@ -28,6 +28,11 @@ const Comp = () => {
 			navigate("/");
 		} catch (error) {
 			console.error("CHyba pri vkladaní", error.message);
+			if (error.response && error.response.data && error.response.data.error === "Email already exists") {
+				window.alert("Email already exists");
+			} else {
+				console.error("General error:", error);
+			}
 		}
 	};
 

@@ -93,6 +93,9 @@ app.post("/deleteUser", verifyToken, async (req, res) => {
 	});
 });
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 app.post(
 	"/signup",
 	[
@@ -103,31 +106,46 @@ app.post(
 	],
 	async (req, res) => {
 		const { name, email, password, bDate } = req.body;
+		const passwordString = String(password);
+		const hashedPassword = await bcrypt.hash(passwordString, saltRounds);
 
-		const sql = "INSERT INTO logins(meno, mail, heslo, fotka, datum_narodenia, log) VALUES (?,?,?,?,?,?)";
-		const values = [name, email, password, "sada", bDate, new Date()];
-		const errors = validationResult(req);
-
-		if (!errors.isEmpty()) {
-			res.status(400).json({ errors: errors.array() });
-			return;
-		}
-
-		db.query(sql, values, (err, result) => {
-			if (err) {
+		const checkEmailQuery = "SELECT * FROM logins WHERE mail = ?";
+		db.query(checkEmailQuery, [email], (checkEmailErr, checkEmailResult) => {
+			if (checkEmailErr) {
 				return res.status(500).json({ error: "db chyba" });
 			}
 
-			res.status(200).send("Záznam úspešne vložený");
+			if (checkEmailResult.length > 0) {
+				return res.status(400).json({ error: "Email already exists" });
+			}
+
+			const sql = "INSERT INTO logins(meno, mail, heslo, fotka, datum_narodenia, log) VALUES (?,?,?,?,?,?)";
+			const values = [name, email, hashedPassword, "sada", bDate, new Date()];
+			const errors = validationResult(req);
+
+			if (!errors.isEmpty()) {
+				res.status(400).json({ errors: errors.array() });
+				return;
+			}
+
+			db.query(sql, values, (err, result) => {
+				if (err) {
+					return res.status(500).json({ error: "db chyba" });
+				}
+
+				res.status(200).send("Záznam úspešne vložený");
+			});
 		});
 	}
 );
 
-app.post("/signin", (req, res) => {
-	const sql = "SELECT * FROM logins WHERE mail = ? AND heslo = ?";
-	const values = [req.body.email, req.body.password];
+app.post("/signin", async (req, res) => {
+	const { email, password } = req.body;
 
-	db.query(sql, values, (err, result) => {
+	const sql = "SELECT * FROM logins WHERE mail = ?";
+	const values = [email];
+
+	db.query(sql, values, async (err, result) => {
 		if (err) {
 			console.error("Database error:", err);
 			res.status(500).send("Internal Server Error");
@@ -139,6 +157,14 @@ app.post("/signin", (req, res) => {
 			return;
 		}
 
+		const hashedPassword = result[0].heslo;
+
+		const passwordMatch = await bcrypt.compare(password, hashedPassword);
+
+		if (!passwordMatch) {
+			res.status(401).send("Invalid email or password");
+			return;
+		}
 		const token = jwt.sign({ userId: result[0].id }, "your_secret_key", { expiresIn: "1h" });
 
 		res.status(200).json({ token });
