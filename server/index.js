@@ -3,6 +3,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
+const { check, validationResult } = require("express-validator");
 
 const app = express();
 app.use(cors());
@@ -14,14 +15,6 @@ const db = mysql.createConnection({
 	password: "",
 	database: "log_vaii",
 });
-
-const users = {
-	user123: {
-		id: "user123",
-		name: "John Doe",
-		email: "john.doe@example.com",
-	},
-};
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -100,18 +93,35 @@ app.post("/deleteUser", verifyToken, async (req, res) => {
 	});
 });
 
-app.post("/signup", (req, res) => {
-	const sql = "INSERT INTO logins(meno, mail, heslo, fotka, datum_narodenia, log) VALUES (?,?,?,?,?,?)";
-	const values = [req.body.name, req.body.email, req.body.password, "sada", req.body.bDate, new Date()];
+app.post(
+	"/signup",
+	[
+		check("name").notEmpty().withMessage("Meno nemoze byt prazdne"),
+		check("email").notEmpty().withMessage("Email nemoze byt prazdne"),
+		check("password").notEmpty().withMessage("Heslo nemoze byt prazdne"),
+		check("bDate").notEmpty().withMessage("Meno nemoze byt prazdne"),
+	],
+	async (req, res) => {
+		const { name, email, password, bDate } = req.body;
 
-	db.query(sql, values, (err, result) => {
-		if (err) {
-			res.status(500).send(err.message);
+		const sql = "INSERT INTO logins(meno, mail, heslo, fotka, datum_narodenia, log) VALUES (?,?,?,?,?,?)";
+		const values = [name, email, password, "sada", bDate, new Date()];
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			res.status(400).json({ errors: errors.array() });
 			return;
 		}
-		res.status(200).send("Záznam úspešne vložený");
-	});
-});
+
+		db.query(sql, values, (err, result) => {
+			if (err) {
+				return res.status(500).json({ error: "db chyba" });
+			}
+
+			res.status(200).send("Záznam úspešne vložený");
+		});
+	}
+);
 
 app.post("/signin", (req, res) => {
 	const sql = "SELECT * FROM logins WHERE mail = ? AND heslo = ?";

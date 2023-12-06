@@ -25,13 +25,10 @@ const Comp = () => {
 
 		try {
 			await axios.post("http://localhost:8081/signup", values);
+			navigate("/");
 		} catch (error) {
-			console.error("CHyba pri vkladaní", error);
+			console.error("CHyba pri vkladaní", error.message);
 		}
-	};
-
-	const funTest = () => {
-		return true;
 	};
 
 	return (
@@ -71,14 +68,9 @@ const Comp = () => {
 						{errors.date && <span className="text-danger">{errors.date}</span>}
 					</div>
 
-					<button disabled={!funTest()} className="btn btn-success w-100 rounded-0">
+					<button className="btn btn-success w-100 rounded-0">
 						<strong>Registrovat sa</strong>
 					</button>
-					<Link to="/login">
-						<button type="submit" className="btn btn-default border w-100 rounded-0 ">
-							Prihlasenie
-						</button>
-					</Link>
 				</form>
 			</div>
 		</div>
