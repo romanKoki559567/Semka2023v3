@@ -41,7 +41,7 @@ const verifyToken = (req, res, next) => {
 app.get("/getUserData", verifyToken, async (req, res) => {
 	const userId = req.userId;
 
-	const sql = "SELECT * FROM logins WHERE id = ?";
+	const sql = "SELECT * FROM users_log WHERE id = ?";
 
 	db.query(sql, [userId], (err, result) => {
 		if (err) {
@@ -65,7 +65,7 @@ app.get("/getUserData", verifyToken, async (req, res) => {
 
 app.post("/updateUser", verifyToken, async (req, res) => {
 	const userId = req.userId;
-	const sql = "UPDATE logins SET meno = ?, mail = ? WHERE id = ?";
+	const sql = "UPDATE users_log SET meno = ?, mail = ? WHERE id = ?";
 	const values = [req.body.name, req.body.email, userId];
 
 	db.query(sql, values, (err, result) => {
@@ -80,7 +80,7 @@ app.post("/updateUser", verifyToken, async (req, res) => {
 
 app.post("/deleteUser", verifyToken, async (req, res) => {
 	const userId = req.userId;
-	const sql = "DELETE FROM logins WHERE id = ?";
+	const sql = "DELETE FROM users_log WHERE id = ?";
 	const values = [userId];
 
 	db.query(sql, values, (err, result) => {
@@ -109,7 +109,7 @@ app.post(
 		const passwordString = String(password);
 		const hashedPassword = await bcrypt.hash(passwordString, saltRounds);
 
-		const checkEmailQuery = "SELECT * FROM logins WHERE mail = ?";
+		const checkEmailQuery = "SELECT * FROM users_log WHERE mail = ?";
 		db.query(checkEmailQuery, [email], (checkEmailErr, checkEmailResult) => {
 			if (checkEmailErr) {
 				return res.status(500).json({ error: "db chyba" });
@@ -119,7 +119,7 @@ app.post(
 				return res.status(400).json({ error: "Email already exists" });
 			}
 
-			const sql = "INSERT INTO logins(meno, mail, heslo, fotka, datum_narodenia, log) VALUES (?,?,?,?,?,?)";
+			const sql = "INSERT INTO users_log(meno, mail, heslo, fotka, datum_narodenia, log) VALUES (?,?,?,?,?,?)";
 			const values = [name, email, hashedPassword, "sada", bDate, new Date()];
 			const errors = validationResult(req);
 
@@ -142,7 +142,7 @@ app.post(
 app.post("/signin", async (req, res) => {
 	const { email, password } = req.body;
 
-	const sql = "SELECT * FROM logins WHERE mail = ?";
+	const sql = "SELECT * FROM users_log WHERE mail = ?";
 	const values = [email];
 
 	db.query(sql, values, async (err, result) => {
@@ -168,6 +168,16 @@ app.post("/signin", async (req, res) => {
 		const token = jwt.sign({ userId: result[0].id }, "your_secret_key", { expiresIn: "1h" });
 
 		res.status(200).json({ token });
+	});
+});
+
+app.get("/graf-data", (req, res) => {
+	db.query("SELECT skutocna, predikovana, id AS i FROM p_odchylky LIMIT 50", (err, result) => {
+		if (err) {
+			res.status(500).send(err);
+		} else {
+			res.status(200).json(result);
+		}
 	});
 });
 

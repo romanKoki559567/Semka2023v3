@@ -24,10 +24,8 @@ const Nastavenia = () => {
 		setErrors(Validation(values));
 
 		try {
-			// Get the token from localStorage
 			const token = localStorage.getItem("token");
 
-			// Make a POST request with the token in the headers
 			await axios.post("http://localhost:8081/updateUser", values, {
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -43,10 +41,8 @@ const Nastavenia = () => {
 		event.preventDefault();
 
 		try {
-			// Get the token from localStorage
 			const token = localStorage.getItem("token");
 
-			// Make a POST request with the token in the headers
 			await axios.post(
 				"http://localhost:8081/deleteUser",
 				{},
@@ -68,7 +64,7 @@ const Nastavenia = () => {
 	React.useEffect(() => {
 		const fetchUserData = async () => {
 			try {
-				const token = localStorage.getItem("token"); // Assuming you store the token in localStorage during login
+				const token = localStorage.getItem("token");
 				const response = await axios.get("http://localhost:8081/getUserData", {
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -83,9 +79,7 @@ const Nastavenia = () => {
 		fetchUserData();
 	}, []);
 
-	const funTest = () => {
-		return true;
-	};
+
 	return (
 		<>
 			{!isAuthenticated ? (
@@ -99,7 +93,7 @@ const Nastavenia = () => {
 						<Hlavicka />
 						<div className="d-flex justify-content-center align-items-center">
 							<div className="bg-white p-3 rounded w-50">
-								<h2 className="text-center">Nastavte pouzivatelske udaje</h2>
+								<h2 className="text-center">Nastavenie používateľských údajov </h2>
 								<form action="" onSubmit={handleSubmit}>
 									<div className="mb-3 mt-3">
 										<label htmlFor="name">
@@ -131,7 +125,34 @@ const Nastavenia = () => {
 										{errors.email && <span className="text-danger">{errors.email}</span>}
 									</div>
 
-									<button disabled={!funTest()} className="btn btn-success border w-100 rounded-0">
+									<div className="mb-3">
+										<label htmlFor="heslo">
+											<strong>Heslo</strong>
+										</label>
+										<input
+											type="password"
+											placeholder="Heslo"
+											className="form-control rounded-0"
+											name="email"
+											onChange={handleInput}
+										></input>
+									</div>
+
+									<div className="mb-3">
+										<label htmlFor="fotka">
+											<strong>Profilová fotka</strong>
+										</label>
+										<input
+											type="file"
+											className="form-control"
+											id="inputGroupFile04"
+											aria-describedby="inputGroupFileAddon04"
+											aria-label="Upload"
+											onChange={handleInput}
+										></input>
+									</div>
+
+									<button className="btn btn-success border w-100 rounded-0">
 										<strong>Nastavit</strong>
 									</button>
 								</form>
@@ -141,7 +162,7 @@ const Nastavenia = () => {
 							<div className="bg-white p-3 rounded w-50">
 								<h2 className="text-center">Zmazanie uctu</h2>
 								<form action="" onSubmit={handleDelete}>
-									<button disabled={!funTest()} className="btn btn-danger border w-100 rounded-0">
+									<button className="btn btn-danger border w-100 rounded-0">
 										<strong>Zmazat</strong>
 									</button>
 								</form>
