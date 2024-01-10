@@ -10,6 +10,7 @@ const Nastavenia = () => {
 	const [values, setValues] = React.useState({
 		name: "",
 		email: "",
+		heslo: "",
 	});
 	const navigate = useNavigate();
 	const [errors, setErrors] = React.useState({});
@@ -28,7 +29,7 @@ const Nastavenia = () => {
 
 			await axios.post("http://localhost:8081/updateUser", values, {
 				headers: {
-					Authorization: `Bearer ${token}`,
+					Authorization: `${token}`,
 				},
 			});
 			window.alert("Uspesne zmenene");
@@ -36,6 +37,31 @@ const Nastavenia = () => {
 			console.error("CHyba pri vkladaní", error);
 		}
 	};
+
+
+	const handleImageChange = (e) => {
+		// Aktualizujte stav s novým súborom
+		setValues({ ...values, image: e.target.files[0] });
+	  };
+
+	  const handleImageUpload = async () => {
+		const formData = new FormData();
+		formData.append('image', values.image);
+	  
+		try {
+		  const token = localStorage.getItem("token");
+		  await axios.post('http://localhost:8081/uploadImage', formData, {
+			headers: {
+			  'Content-Type': 'multipart/form-data',
+			  'Authorization': `${token}`,
+			}
+		  });
+		  alert("Obrázok bol úspešne nahraný");
+		} catch (error) {
+		  alert("Chyba pri nahrávaní obrázka");
+		  console.error("CHyba pri nahrávaní obrázka", error);
+		}
+	  };
 
 	const handleDelete = async (event) => {
 		event.preventDefault();
@@ -48,7 +74,7 @@ const Nastavenia = () => {
 				{},
 				{
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `${token}`,
 					},
 				}
 			);
@@ -67,7 +93,7 @@ const Nastavenia = () => {
 				const token = localStorage.getItem("token");
 				const response = await axios.get("http://localhost:8081/getUserData", {
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `${token}`,
 					},
 				});
 				setValues(response.data);
@@ -148,7 +174,7 @@ const Nastavenia = () => {
 											id="inputGroupFile04"
 											aria-describedby="inputGroupFileAddon04"
 											aria-label="Upload"
-											onChange={handleInput}
+											onChange={handleImageChange}
 										></input>
 									</div>
 

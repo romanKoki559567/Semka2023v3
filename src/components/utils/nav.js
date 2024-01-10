@@ -38,7 +38,7 @@ const Nav = () => {
 				const token = localStorage.getItem("token"); // Assuming you store the token in localStorage during login
 				const response = await axios.get("http://localhost:8081/getUserData", {
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: `${token}`,
 					},
 				});
 				setValues(response.data);
