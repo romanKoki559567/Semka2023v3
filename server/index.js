@@ -30,14 +30,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
  * Overuje JWT token a dešifruje user ID
 */
 const verifyToken = (req, res, next) => {
-	const jwtToken = req.headers.authorization;
+	const authHeader = req.headers.authorization;
 
-	if (!jwtToken) {
-		return res.status(401).json({ error: "Unauthorized" }); // neautorizovaný prístup
-	}
+	const token = authHeader;
 
 	try {
-		const decoded = jwt.verify(token, secretKey); // overím token
+		const decoded = jwt.verify(token, secretKey);
 		req.userId = decoded.userId;
 		next();
 	} catch (error) {
@@ -57,7 +55,6 @@ function validateEmail(email) {
 app.get("/getUserData", verifyToken, async (req, res) => {
 	const userId = req.userId;
 	const sql = "SELECT * FROM users_log WHERE id = ?";
-	// TODO dal preč [] z userId
 	db.query(sql, userId, (err, result) => {
 		if (err) {
 			console.error("Error fetching user data:", err);
@@ -202,28 +199,56 @@ app.post("/signin", async (req, res) => {
 });
 
 app.post("/postComment", verifyToken, async (req, res) => {
-	const { userId, inputKomentar } = req.body;
+	const userId = req.userId;
+	const inputKomentar = req.body.comment; // Use req.body.comment to get the comment value
 	const sql = "INSERT INTO comments(date, user_id, id_projektu, comment) VALUES (?,?,?,?)";
 	const values = [new Date(), userId, 1, inputKomentar];
-	const errors = validationResult(req);
 
 	db.query(sql, values, (err, result) => {
 		if (err) {
-			console.error("Error deleting user:", err);
+			console.error("Error inserting comment:", err);
 			res.status(500).send(err.message);
 			return;
 		}
-		res.status(200).send("Záznam úspešne odstránený");
+
+		res.status(200).send("Záznam úspešne pridaný"); // Updated success message
 	});
 });
 
-app.post("/graf-data", (req, res) => {
-	db.query("SELECT skutocna, predikovana, id AS i FROM p_odchylky LIMIT 50", (err, result) => {
+app.get("/getKomentare", async (req, res) => {
+	const sql = "SELECT comment FROM comments";
+	db.query(sql, (err, result) => {
 		if (err) {
-			res.status(500).send(err);
-		} else {
-			res.status(200).json(result);
+			console.error("Error fetching data:", err);
+			res.status(500).json({ error: "Internal Server Error" });
+			return;
 		}
+
+		if (result.length === 0) {
+			res.status(404).json({ error: "Not Found" });
+			// TODO doplniť alert že dal zlé heslo
+			return;
+		}
+
+		res.status(200).json(result);
+	});
+});
+
+app.get("/graf-data", async (req, res) => {
+	const sql = "SELECT skutocna, predikovana, id AS i FROM p_odchylky LIMIT 50";
+	db.query(sql, (err, result) => {
+		if (err) {
+			console.error("Error fetching data:", err);
+			res.status(500).json({ error: "Internal Server Error" });
+			return;
+		}
+
+		if (result.length === 0) {
+			res.status(404).json({ error: "Not Found" });
+			return;
+		}
+
+		res.status(200).json(result);
 	});
 });
 

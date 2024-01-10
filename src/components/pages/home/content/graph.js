@@ -12,19 +12,18 @@ const Graph = () => {
 				setData(res.data);
 			})
 			.catch((err) => {
-				console.error("Chyba pri načítaní dat z grafu: ", err);
+				console.error("Error loading graph data: ", err);
 			});
 	}, []);
 
 	return (
 		<div className="obsahGrafu">
-			<LineChart width={800} height={200} data={data}>
+			<LineChart width={800} height={400} data={data}>
 				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="name" />
+				<XAxis dataKey="i" />
 				<YAxis />
 				<Tooltip />
 				<Legend />
-				<XAxis dataKey="index" />
 				<Line type="monotone" dataKey="skutocna" stroke="#4169E1" activeDot={{ r: 8 }} />
 				<Line type="monotone" dataKey="predikovana" stroke="#87CEEB" activeDot={{ r: 8 }} />
 			</LineChart>

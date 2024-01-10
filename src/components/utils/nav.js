@@ -226,7 +226,6 @@ const Nav = () => {
 						{errors.name && <span className="text-danger">{errors.name}</span>}
 					</div>
 				</Link>
-				
 			</div>
 		</>
 	);

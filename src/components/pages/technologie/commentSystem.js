@@ -5,7 +5,7 @@ const CommentSystem = () => {
 	const [inputKomentar, setInputKomentar] = useState(""); // aktualne písany komentár (input)
 	const [komentare, setKomentare] = useState([""]); // všetky moje komentáre (array)
 
-	useEffect(() => { //  volá sa nonstop/klame
+	useEffect(() => {
 		axios
 			.get("http://localhost:8081/getKomentare")
 			.then((res) => {
@@ -16,29 +16,65 @@ const CommentSystem = () => {
 			});
 	}, []);
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (event) => {
+		console.log("spuštam 'handleSubmit' comment", inputKomentar);
+		event.preventDefault();
+
 		try {
-			await axios.post("http://localhost:8081/postComment", inputKomentar);
+			const token = localStorage.getItem("token");
+
+			await axios.post(
+				"http://localhost:8081/postComment",
+				{ comment: inputKomentar },
+				{
+					headers: {
+						Authorization: `${token}`,
+					},
+				}
+			);
+
+			window.location.reload();
 		} catch (error) {
-			console.error("Chyba pri vkladaní", error.message);
+			console.error("CHyba pri vkladaní", error);
 		}
 	};
+
+
 
 	return (
 		<div>
 			<div>
-				{komentare.length < 0 &&
-					komentare.map(
-						// ak komentare existujú tak ich namapuje ak je prázny tak nič
-						(
-							komentar // vypíše každy existujúci komentár a sprví z neho odstavec
-						) => <li>{komentar}</li>
-					)}
+				{komentare.length > 0 &&
+					komentare.map((komentar) => (
+						<div className="card mt-2 ">
+							<div className="card-body">
+								<ul key={komentar.id}>{komentar.comment}</ul>
+								<div className="d-grid gap-2 d-md-flex justify-content-md-end">
+									<button type="button" className="btn btn-outline-primary" onClick={() => Uprav(komentar.id)}>
+										Upraviť
+									</button>
+									<button type="button" className="btn btn-outline-danger" onClick={() => Vymaz(komentar.id)}>
+										Vymazať
+									</button>
+								</div>
+							</div>
+						</div>
+					))}
 			</div>
 
 			<form onSubmit={handleSubmit}>
-				<textarea value={inputKomentar} onChange={(e) => setInputKomentar(e.target.value)} placeholder="Napíšte váš komentár..." rows="4" />
-				<button type="submit">Odoslať komentár</button>
+				<label for="exampleFormControlTextarea1" className="form-label">
+					<h3>Komentár</h3>
+				</label>
+				<textarea
+					class="form-control"
+					id="exampleFormControlTextarea1"
+					rows="3"
+					value={inputKomentar}
+					onChange={(e) => setInputKomentar(e.target.value)}
+					placeholder="Napíšte váš komentár..."
+				/>
+				<button className="btn btn-primary "  type="submit">Odoslať komentár</button>
 			</form>
 		</div>
 	);
