@@ -32,6 +32,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const verifyToken = (req, res, next) => {
 	const authHeader = req.headers.authorization;
 
+	if (!authHeader) {
+		return res.status(401).json({ error: "Authorization header missing" });
+	}
+
 	const token = authHeader;
 
 	try {
@@ -39,6 +43,7 @@ const verifyToken = (req, res, next) => {
 		req.userId = decoded.userId;
 		next();
 	} catch (error) {
+		console.error("Error decoding token:", error.message);
 		return res.status(401).json({ error: "Invalid token" });
 	}
 };
@@ -215,8 +220,26 @@ app.post("/postComment", verifyToken, async (req, res) => {
 	});
 });
 
+app.put("/editComment/:id_comment", verifyToken, async (req, res) => {
+	const id = req.params.id_comment;
+	const { comment } = req.body;
+
+	const sql = "UPDATE comments SET comment = ? WHERE id_comment = ?";
+	const values = [comment, id];
+
+	db.query(sql, values, (err, result) => {
+		if (err) {
+			console.error("Error updating comment:", err);
+			res.status(500).send(err.message);
+			return;
+		}
+
+		res.status(200).send("Comment updated successfully");
+	});
+});
+
 app.get("/getKomentare", async (req, res) => {
-	const sql = "SELECT id_comment, comment, date, meno FROM comments JOIN users_log ON user_id = id";
+	const sql = "SELECT id_comment, comment, user_id,  date, meno FROM comments JOIN users_log ON user_id = id";
 	db.query(sql, (err, result) => {
 		if (err) {
 			console.error("Error fetching data:", err);
@@ -250,6 +273,16 @@ app.get("/graf-data", async (req, res) => {
 
 		res.status(200).json(result);
 	});
+});
+
+app.get("/getUserID", verifyToken, (req, res) => {
+	try {
+		const userId = req.userId;
+		res.status(200).json({ userId });
+	} catch (error) {
+		console.error("Error in getUserID route:", error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
 });
 
 app.delete("/deleteComm/:id_comment", verifyToken, async (req, res) => {

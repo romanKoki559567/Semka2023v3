@@ -2,31 +2,58 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const CommentSystem = () => {
-	// stavy komponentu
-	const [inputKomentar, setInputKomentar] = useState(""); // aktualne písany komentár (input)
-	const [komentare, setKomentare] = useState([""]); // všetky moje komentáre (array)
+	const [inputKomentar, setInputKomentar] = useState("");
+	const [komentare, setKomentare] = useState([""]);
+	const [userId, setUserId] = useState(null); // Add this line
+	const [editingComment, setEditingComment] = useState(null);
 
-	// instantné načítanie pred zobrazením kompontntu
 	useEffect(() => {
+		const token = localStorage.getItem("token");
+		// Fetch user ID when the component mounts
+		axios
+			.get("http://localhost:8081/getUserID", {
+				headers: {
+					Authorization: `${token}`,
+				},
+			})
+			.then((res) => {
+				setUserId(res.data.userId);
+			})
+			.catch((err) => {
+				console.error("Chyba pri načítaní userID", err);
+			});
+
+		// Fetch comments when the component mounts
 		axios
 			.get("http://localhost:8081/getKomentare")
 			.then((res) => {
 				setKomentare(res.data);
 			})
 			.catch((err) => {
-				console.error("Chyba pri načítaní dat z grafu: ", err);
+				console.error("Chyba pri načítaní", err);
 			});
 	}, []);
 
 	const handleSubmit = async (event) => {
-		console.log("spuštam 'handleSubmit' comment", inputKomentar);
 		event.preventDefault();
 
 		try {
 			const token = localStorage.getItem("token");
 
-			await axios
-				.post(
+			if (editingComment) {
+				// Update existing comment
+				await axios.put(
+					`http://localhost:8081/editComment/${editingComment.id_comment}`,
+					{ comment: inputKomentar },
+					{
+						headers: {
+							Authorization: `${token}`,
+						},
+					}
+				);
+			} else {
+				// Add new comment
+				await axios.post(
 					"http://localhost:8081/postComment",
 					{ comment: inputKomentar },
 					{
@@ -34,62 +61,57 @@ const CommentSystem = () => {
 							Authorization: `${token}`,
 						},
 					}
-				)
-				.then(() => {
-					axios
-						.get("http://localhost:8081/getKomentare")
-						.then((res) => {
-							setKomentare(res.data);
-						})
-						.catch((err) => {
-							console.error("Chyba pri načítaní dat z grafu: ", err);
-						});
-				});
+				);
+			}
+
+			// Refresh comments
+			const updatedComments = await axios.get("http://localhost:8081/getKomentare");
+			setKomentare(updatedComments.data);
+
+			// Reset form and editing state
+			setInputKomentar("");
+			setEditingComment(null);
 		} catch (error) {
-			console.error("CHyba pri vkladaní", error);
+			console.error("Chyba pri vkladaní/editovaní komentára", error);
 		}
 	};
 
-	// + url -> /${id_comment}
 	const onCommDelete = async (id_comment) => {
-		console.log("spuštam 'onCommDelete' comment", id_comment);
-
 		try {
 			const token = localStorage.getItem("token");
 
-			await axios
-				.delete(`http://localhost:8081/deleteComm/${id_comment}`, {
-					headers: {
-						Authorization: `${token}`,
-					},
-				})
-				.then(() => {
-					axios
-						.get("http://localhost:8081/getKomentare")
-						.then((res) => {
-							setKomentare(res.data);
-						})
-						.catch((err) => {
-							console.error("Chyba pri načítaní dat z grafu: ", err);
-						});
-				});
+			await axios.delete(`http://localhost:8081/deleteComm/${id_comment}`, {
+				headers: {
+					Authorization: `${token}`,
+				},
+			});
+
+			// Refresh comments
+			const updatedComments = await axios.get("http://localhost:8081/getKomentare");
+			setKomentare(updatedComments.data);
 		} catch (error) {
-			console.error("chyba pri mazaní", error);
+			console.error("Chyba pri mazaní komentára", error);
 		}
 	};
-	// TODO - upraviť settings comm
+
+	const onCommEdit = (comment) => {
+		setInputKomentar(comment.comment);
+		setEditingComment(comment);
+	};
+
+	//console.log(userId);
+
 	return (
 		<div>
 			<div>
 				{komentare != null &&
 					komentare.length > 0 &&
 					komentare.map((komentar) => (
-						<div className="card mt-2 ">
+						<div className="card mt-2" key={komentar.id_comment}>
 							<div className="card-body d-flex justify-content-between">
 								<ul>{komentar.comment} </ul>
-								<div className=" d-md-flex justify-content-md-end flex-culum d-flex flex-column">
+								<div className="d-md-flex justify-content-md-end flex-culum d-flex flex-column">
 									<div className="d-flex gap-3 flex-nowrap">
-										<p>(edit)</p>
 										<p> {komentar.meno}</p>
 										<time dateTime={komentar.date}>
 											{new Date(komentar.date).toLocaleDateString("sk-SK", {
@@ -104,12 +126,17 @@ const CommentSystem = () => {
 									</div>
 
 									<div>
-										<button type="button" className="btn btn-outline-primary">
-											Upraviť
-										</button>
-										<button type="button" className="btn btn-outline-danger" onClick={() => onCommDelete(komentar.id_comment)}>
-											Vymazať
-										</button>
+										{userId === komentar.user_id && (
+											// Only render the buttons if the logged-in user's ID matches the user_id of the comment
+											<>
+												<button type="button" className="btn btn-outline-primary" onClick={() => onCommEdit(komentar)}>
+													Upraviť
+												</button>
+												<button type="button" className="btn btn-outline-danger" onClick={() => onCommDelete(komentar.id_comment)}>
+													Vymazať
+												</button>
+											</>
+										)}
 									</div>
 								</div>
 							</div>
@@ -118,11 +145,11 @@ const CommentSystem = () => {
 			</div>
 
 			<form onSubmit={handleSubmit}>
-				<label for="exampleFormControlTextarea1" className="form-label">
+				<label htmlFor="exampleFormControlTextarea1" className="form-label">
 					<h3>Komentár</h3>
 				</label>
 				<textarea
-					class="form-control"
+					className="form-control"
 					id="exampleFormControlTextarea1"
 					rows="3"
 					value={inputKomentar}
@@ -130,10 +157,11 @@ const CommentSystem = () => {
 					placeholder="Napíšte váš komentár..."
 				/>
 				<button className="btn btn-primary " type="submit">
-					Odoslať komentár
+					{editingComment ? "Upraviť komentár" : "Odoslať komentár"}
 				</button>
 			</form>
 		</div>
 	);
 };
+
 export default CommentSystem;
