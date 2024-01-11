@@ -101,11 +101,11 @@ app.post(
 		});
 	}
 );
-
+// TODO - post -> delete?
 app.post("/deleteUser", verifyToken, async (req, res) => {
-	const userId = req.userId;
+	const id = req.body.id_comment;
 	const sql = "DELETE FROM users_log WHERE id = ?";
-	const values = [userId];
+	const values = [id];
 
 	db.query(sql, values, (err, result) => {
 		if (err) {
@@ -216,7 +216,7 @@ app.post("/postComment", verifyToken, async (req, res) => {
 });
 
 app.get("/getKomentare", async (req, res) => {
-	const sql = "SELECT comment FROM comments";
+	const sql = "SELECT id_comment, comment, date, meno FROM comments JOIN users_log ON user_id = id";
 	db.query(sql, (err, result) => {
 		if (err) {
 			console.error("Error fetching data:", err);
@@ -251,6 +251,44 @@ app.get("/graf-data", async (req, res) => {
 		res.status(200).json(result);
 	});
 });
+
+app.delete("/deleteComm/:id_comment", verifyToken, async (req, res) => {
+	const id = req.params.id_comment;
+	console.log("spuštam 'onCommDelete' comment", id);
+	const sql = "DELETE FROM comments WHERE id_comment = ?";
+
+	db.query(sql, [id], (err, result) => {
+		if (err) {
+			console.error("Error deleting user:", err);
+			res.status(500).send(err.message);
+			return;
+		}
+		res.status(200).json({ id: id });
+	});
+});
+
+/*
+app.delete("/deleteComm", verifyToken, async (req, res) => {
+	const comment_id = req.body.id_comment;
+	console.log("shit", comment_id);
+
+	if (!comment_id) {
+		res.status(400);
+		return;
+	}
+	const values = [comment_id];
+	const sql = "DELETE FROM comments WHERE id_comment = ?";
+
+	db.query(sql, values, (err, result) => {
+		if (err) {
+			console.error("Error deleting user:", err);
+			res.status(500).send(err.message);
+			return;
+		}
+		res.status(200).send("Záznam úspešne odstránený");
+	});
+});
+*/
 
 app.listen(8081, () => {
 	console.log("Server počúva na porte 8081");
