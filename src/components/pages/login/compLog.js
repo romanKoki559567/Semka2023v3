@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 import Validation from "./loginValidation";
 import axios from "axios";
+import { Formik } from "formik";
 
 const CompLog = () => {
 	const isAuthenticated = !!localStorage.getItem("token");
@@ -44,7 +45,11 @@ const CompLog = () => {
 			) : (
 				<div className="d-flex justify-content-center align-items-center">
 					<div className="bg-white p-3 rounded w-50">
-						<form action="" onSubmit={handleSubmit}>
+						<Formik>
+
+							
+						</Formik>
+						<form action="" onSubmit={handleSubmit} >
 							<div className="mb-3">
 								<label htmlFor="email">
 									<strong>Email</strong>{" "}

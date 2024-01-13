@@ -39,9 +39,8 @@ code {
 	display: block;
 }
 .mobile-menu-toggle {
-	display: none; /* Hide on larger screens */
+	display: none; 
 	cursor: pointer;
-	/* Your styling for the toggle button... */
 }
 
 .nav-button {
@@ -299,8 +298,4 @@ code {
 	.homePage {
 		flex-direction: column;
 	}
-}
-
-.comm-set {
-	width: 550px;
 }

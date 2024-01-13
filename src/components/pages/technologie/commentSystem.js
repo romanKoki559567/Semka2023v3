@@ -9,7 +9,7 @@ const CommentSystem = () => {
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
-		// Fetch user ID when the component mounts
+		
 		axios
 			.get("http://localhost:8081/getUserID", {
 				headers: {

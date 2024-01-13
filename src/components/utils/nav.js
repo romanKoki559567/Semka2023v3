@@ -104,6 +104,29 @@ const Nav = () => {
 						</div>
 					</Link>
 
+					<div class="btn-group dropend">
+						<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+							Dropend
+						</button>
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="#">
+									Action
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#">
+									Action two
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#">
+									Action three
+								</a>
+							</li>
+						</ul>
+					</div>
+
 					<Link className="link" to="/technologie">
 						<div className="nav-button">
 							<svg width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -205,7 +228,7 @@ const Nav = () => {
 					) : null}
 					<div className="nav-line"></div>
 
-					<Link className="link" to="/">
+					<Link className="link" to="/projekty">
 						<div className="nav-button">
 							<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
