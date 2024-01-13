@@ -52,11 +52,6 @@ const verifyToken = (req, res, next) => {
 // table: users_log
 // ____________________________________________________________________________________________________________
 
-function validateEmail(email) {
-	const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	return re.test(email.toLowerCase());
-}
-
 app.get("/getUserData", verifyToken, async (req, res) => {
 	const userId = req.userId;
 	const sql = "SELECT * FROM users_log WHERE id = ?";
@@ -82,14 +77,22 @@ app.get("/getUserData", verifyToken, async (req, res) => {
 	});
 });
 
-app.post(
+app.patch(
 	"/updateUser",
-	[check("name").notEmpty().withMessage("Meno nemoze byt prazdne"), check("email").notEmpty().withMessage("Email nemoze byt prazdne")],
+	[
+		check("name").notEmpty().withMessage("Meno nemoze byt prazdne"),
+		check("email").notEmpty().isEmail().normalizeEmail().withMessage("Nespárvne vyplnený email"),
+	],
 	verifyToken,
 	async (req, res) => {
 		const { name, email } = req.body;
 		const sql = "UPDATE users_log SET meno = ?, mail = ? WHERE id = ?";
-		const values = [name, email, req.userId];
+		const userId = req.userId;
+		if (!userId) {
+			res.status(404).json(`User with id ${userId} doesnt exist`);
+			return;
+		}
+		const values = [name, email, userId];
 		const errors = validationResult(req);
 
 		if (!errors.isEmpty()) {
@@ -107,10 +110,11 @@ app.post(
 	}
 );
 // TODO - post -> delete?
-app.post("/deleteUser", verifyToken, async (req, res) => {
-	const id = req.body.id_comment;
+app.delete("/deleteUser", verifyToken, async (req, res) => {
+	const id = req.userId;
 	const sql = "DELETE FROM users_log WHERE id = ?";
 	const values = [id];
+	//TODO
 
 	db.query(sql, values, (err, result) => {
 		if (err) {
@@ -126,7 +130,7 @@ app.post(
 	"/signup",
 	[
 		check("name").notEmpty().withMessage("Meno nemoze byt prazdne"),
-		check("email").notEmpty().withMessage("Email nemoze byt prazdne"),
+		check("email").notEmpty().isEmail().normalizeEmail().withMessage("Email nemoze byt prazdne"),
 		check("password").notEmpty().withMessage("Heslo nemoze byt prazdne"),
 		check("bDate").notEmpty().withMessage("Meno nemoze byt prazdne"),
 	],

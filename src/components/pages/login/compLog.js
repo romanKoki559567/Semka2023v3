@@ -19,11 +19,19 @@ const CompLog = () => {
 	};
 
 	const handleSubmit = async (event) => {
-		event.preventDefault();
+		const email = event.target.email.value;
+		const password = event.target.password.value;
+		console.log(email);
+		console.log(event.target.password);
 		setErrors(Validation(values));
+		event.preventDefault();
+		if (email === "" || password === "") {
+			return;
+		}
 
 		try {
 			const response = await axios.post("http://localhost:8081/signin", values);
+
 			if (response.data.token) {
 				console.log("SignIn successful");
 				localStorage.setItem("token", response.data.token);
@@ -32,7 +40,7 @@ const CompLog = () => {
 				console.log("Unexpected response:", response.data);
 			}
 		} catch (error) {
-			console.error("Error during login:", error);
+			alert("Nesprávny email alebo heslo");
 		}
 	};
 
@@ -45,16 +53,12 @@ const CompLog = () => {
 			) : (
 				<div className="d-flex justify-content-center align-items-center">
 					<div className="bg-white p-3 rounded w-50">
-						<Formik>
-
-							
-						</Formik>
-						<form action="" onSubmit={handleSubmit} >
+						<form action="" onSubmit={handleSubmit}>
 							<div className="mb-3">
 								<label htmlFor="email">
 									<strong>Email</strong>{" "}
 								</label>
-								<input type="email" placeholder="Email" className="form-control rounded-0" onChange={handleInput} name="email" />
+								<input type="" placeholder="Email" className="form-control rounded-0" onChange={handleInput} name="email" />
 								{errors.email && <span className="text-danger">{errors.email}</span>}
 							</div>
 

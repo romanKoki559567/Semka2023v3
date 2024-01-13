@@ -8,7 +8,7 @@ const Comp = () => {
 		name: "",
 		email: "",
 		password: "",
-		bDate: "",
+		bDate: undefined,
 	});
 
 	const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Comp = () => {
 			await axios.post("http://localhost:8081/signup", values);
 			navigate("/");
 		} catch (error) {
-			console.error("CHyba pri vkladaní", error.message);
+			console.error("Chyba pri vkladaní", error.message);
 			if (error.response && error.response.data && error.response.data.error === "Email already exists") {
 				window.alert("Email already exists");
 			} else {
@@ -53,7 +53,7 @@ const Comp = () => {
 						<label htmlFor="email">
 							<strong>Email</strong>
 						</label>
-						<input type="email" placeholder="Email" className="form-control rounded-0" name="email" onChange={handleInput}></input>
+						<input type="" placeholder="Email" className="form-control rounded-0" name="email" onChange={handleInput}></input>
 						{errors.email && <span className="text-danger">{errors.email}</span>}
 					</div>
 
@@ -67,9 +67,9 @@ const Comp = () => {
 
 					<div className="mb-3">
 						<label htmlFor="bDate">
-							<strong>Dátum Narodenia</strong>{" "}
+							<strong>Dátum Narodenia</strong>
 						</label>
-						<input type="date" className="form-control rounded-0" name="bDate" onChange={handleInput}></input>
+						<input type="date" className="form-control rounded-0" name="date" onChange={handleInput}></input>
 						{errors.date && <span className="text-danger">{errors.date}</span>}
 					</div>
 

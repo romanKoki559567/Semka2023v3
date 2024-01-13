@@ -39,7 +39,7 @@ code {
 	display: block;
 }
 .mobile-menu-toggle {
-	display: none; 
+	display: none;
 	cursor: pointer;
 }
 
@@ -287,7 +287,7 @@ code {
 	}
 
 	.lavy-nav {
-		position: fixed;
+		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;

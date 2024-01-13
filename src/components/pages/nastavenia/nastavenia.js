@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import Nav from "../../utils/nav";
 import Hlavicka from "../../utils/hlavicka";
 import { Link, useNavigate, Navigate } from "react-router-dom";
-import Validation from "../signup/singupValidation";
+import Validation from "./settingsValidation";
 import axios from "axios";
 
 const Nastavenia = () => {
 	const isAuthenticated = !!localStorage.getItem("token");
-	const [values, setValues] = React.useState({
+	const [values, setValues] = useState({
 		name: "",
 		email: "",
 		heslo: "",
 	});
+
 	const navigate = useNavigate();
-	const [errors, setErrors] = React.useState({});
+	const [errors, setErrors] = useState({});
 
 	const handleInput = (event) => {
 		setValues((prev) => ({ ...prev, [event.target.name]: [event.target.value] }));
@@ -22,46 +23,22 @@ const Nastavenia = () => {
 	const handleSubmit = async (event) => {
 		console.log("spuštam 'handleSubmit' sing", values);
 		event.preventDefault();
-		setErrors(Validation(values));
+		setErrors(Validation(errors));
+		console.log("validácia settings: ", values);
 
 		try {
 			const token = localStorage.getItem("token");
 
-			await axios.post("http://localhost:8081/updateUser", values, {
+			await axios.patch("http://localhost:8081/updateUser/", values, {
 				headers: {
 					Authorization: `${token}`,
 				},
 			});
 			window.alert("Uspesne zmenene");
 		} catch (error) {
-			console.error("CHyba pri vkladaní", error);
+			console.error("Chyba pri vkladaní", error);
 		}
 	};
-
-
-	const handleImageChange = (e) => {
-		// Aktualizujte stav s novým súborom
-		setValues({ ...values, image: e.target.files[0] });
-	  };
-
-	  const handleImageUpload = async () => {
-		const formData = new FormData();
-		formData.append('image', values.image);
-	  
-		try {
-		  const token = localStorage.getItem("token");
-		  await axios.post('http://localhost:8081/uploadImage', formData, {
-			headers: {
-			  'Content-Type': 'multipart/form-data',
-			  'Authorization': `${token}`,
-			}
-		  });
-		  alert("Obrázok bol úspešne nahraný");
-		} catch (error) {
-		  alert("Chyba pri nahrávaní obrázka");
-		  console.error("CHyba pri nahrávaní obrázka", error);
-		}
-	  };
 
 	const handleDelete = async (event) => {
 		event.preventDefault();
@@ -69,15 +46,11 @@ const Nastavenia = () => {
 		try {
 			const token = localStorage.getItem("token");
 
-			await axios.post(
-				"http://localhost:8081/deleteUser",
-				{},
-				{
-					headers: {
-						Authorization: `${token}`,
-					},
-				}
-			);
+			await axios.delete("http://localhost:8081/deleteUser", {
+				headers: {
+					Authorization: `${token}`,
+				},
+			});
 			window.alert("Uspesne Odstranene");
 			localStorage.removeItem("token");
 
@@ -105,7 +78,6 @@ const Nastavenia = () => {
 		fetchUserData();
 	}, []);
 
-
 	return (
 		<>
 			{!isAuthenticated ? (
@@ -121,18 +93,11 @@ const Nastavenia = () => {
 							<div className="bg-white p-3 rounded w-50">
 								<h2 className="text-center">Nastavenie používateľských údajov </h2>
 								<form action="" onSubmit={handleSubmit}>
-									<div className="mb-3 mt-3">
+									<div className="mb-3">
 										<label htmlFor="name">
 											<strong>Používatelské meno</strong>{" "}
 										</label>
-										<input
-											type="text"
-											placeholder="Meno"
-											className="form-control rounded-0"
-											name="name"
-											value={values.name}
-											onChange={handleInput}
-										></input>
+										<input type="text" placeholder="Meno" className="form-control rounded-0" name="name" onChange={handleInput}></input>
 										{errors.name && <span className="text-danger">{errors.name}</span>}
 									</div>
 
@@ -141,27 +106,28 @@ const Nastavenia = () => {
 											<strong>Email</strong>
 										</label>
 										<input
-											type="email"
+											type=""
 											placeholder="Email"
 											className="form-control rounded-0"
 											name="email"
-											value={values.email}
 											onChange={handleInput}
+											value={values.email}
 										></input>
 										{errors.email && <span className="text-danger">{errors.email}</span>}
 									</div>
 
 									<div className="mb-3">
-										<label htmlFor="heslo">
+										<label htmlFor="password">
 											<strong>Heslo</strong>
 										</label>
 										<input
 											type="password"
 											placeholder="Heslo"
 											className="form-control rounded-0"
-											name="email"
+											name="password"
 											onChange={handleInput}
 										></input>
+										{errors.password && <span className="text-danger">{errors.password}</span>}
 									</div>
 
 									<div className="mb-3">
@@ -174,7 +140,6 @@ const Nastavenia = () => {
 											id="inputGroupFile04"
 											aria-describedby="inputGroupFileAddon04"
 											aria-label="Upload"
-											onChange={handleImageChange}
 										></input>
 									</div>
 
