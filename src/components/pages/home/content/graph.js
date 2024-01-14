@@ -17,8 +17,8 @@ const Graph = () => {
 	}, []);
 
 	return (
-		<div className="obsahGrafu">
-			<LineChart width={800} height={400} data={data}>
+		<div className="obsahGrafu card-use">
+			<LineChart width={700} height={250} data={data}>
 				<CartesianGrid strokeDasharray="3 3" />
 				<XAxis dataKey="i" />
 				<YAxis />

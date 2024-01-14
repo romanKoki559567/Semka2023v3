@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../../utils/nav";
 import Hlavicka from "../../utils/hlavicka";
-import Content from "./content";
+import Content from "../rozdeleniePravdepodobnosti/content";
 
 const Projekty = () => {
 	return (

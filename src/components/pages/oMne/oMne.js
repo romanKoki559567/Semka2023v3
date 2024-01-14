@@ -11,6 +11,7 @@ const oMne = () => {
 
 			<div className="pravy-content">
 				<Hlavicka />
+				<Info />
 				<Location />
 			</div>
 		</div>

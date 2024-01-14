@@ -10,6 +10,67 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.nadpis-hlavny {
+	color: #1a2b88;
+	font-weight: bolder;
+	margin-bottom: 45px;
+}
+
+.pod-nadpis {
+	color: #1a2b88;
+	font-weight: bold;
+	margin-bottom: 20px;
+	margin-top: 30px;
+}
+
+.pod-nadpis2 {
+	margin-top: 30px;
+	color: #1a2b88;
+	font-weight: 500;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.italic-text {
+	font-style: italic;
+}
+
+.modra {
+	color: #1a2b88;
+}
+
+.podciarknutie-text {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.odsad {
+	margin-bottom: 10px;
+}
+
+.card-use {
+	padding: 60px 60px 60px 60px;
+	background-color: white;
+	border-radius: 16px;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	margin-bottom: 20px;
+	margin-right: 20px;
+}
+
+.card-menu {
+	padding: 20px 20px 20px 30px;
+	background-color: white;
+	border-radius: 16px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	border: 1px solid rgb(87, 87, 87);
+}
+
+.center-image {
+}
+
 .homePage {
 	background-image: url("/src/images/bgDesign.png");
 	background-size: cover;
@@ -19,6 +80,7 @@ code {
 	display: flex;
 	overflow-x: hidden;
 }
+
 .link {
 	text-decoration: none;
 	color: #0c0c0d;
@@ -34,10 +96,14 @@ code {
 	width: 25rem;
 	height: 100%;
 	padding-top: 2rem;
+	position: sticky;
+	top: 0;
 }
+
 .lavy-nav > .menu-open > {
 	display: block;
 }
+
 .mobile-menu-toggle {
 	display: none;
 	cursor: pointer;
@@ -54,8 +120,9 @@ code {
 	border: 1px solid transparent;
 	border-radius: 10px;
 }
+
 .nav-button:hover {
-	border: 1px solid #7b7b7b;
+	border: 1px solid #555555;
 
 	color: #1a2b88;
 	background-color: #ffffff;
@@ -218,7 +285,7 @@ code {
 .mobile-menu-toggle span {
 	height: 3px;
 	width: 25px;
-	background-color: #333; /* Adjust color as needed */
+	background-color: #333;
 	margin: 5px 0;
 	transition: 0.4s;
 }
@@ -279,7 +346,6 @@ code {
 
 	.menu-container {
 		display: block;
-		/* Your styling for the menu container... */
 	}
 
 	.menu-container > .menu-open > {

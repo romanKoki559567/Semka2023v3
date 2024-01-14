@@ -132,11 +132,11 @@ app.post(
 		check("name").notEmpty().withMessage("Meno nemoze byt prazdne"),
 		check("email").notEmpty().isEmail().normalizeEmail().withMessage("Email nemoze byt prazdne"),
 		check("password").notEmpty().withMessage("Heslo nemoze byt prazdne"),
-		check("bDate").notEmpty().withMessage("Meno nemoze byt prazdne"),
+		check("date").notEmpty().withMessage("Dátum nemôže byť prázdny"),
 	],
 	async (req, res) => {
 		const errors = validationResult(req);
-		const { name, email, password, bDate } = req.body;
+		const { name, email, password, date } = req.body;
 		const passwordString = String(password);
 		const hashedPassword = await bcrypt.hash(passwordString, saltRounds);
 		const checkEmailQuery = "SELECT * FROM users_log WHERE mail = ?";
@@ -156,7 +156,7 @@ app.post(
 			}
 
 			const sql = "INSERT INTO users_log(meno, mail, heslo, fotka, datum_narodenia, log) VALUES (?,?,?,?,?,?)";
-			const values = [name, email, hashedPassword, "sada", bDate, new Date()];
+			const values = [name, email, hashedPassword, "sada", date, new Date()];
 			const errors = validationResult(req);
 
 			if (!errors.isEmpty()) {

@@ -10,6 +10,8 @@ import Projekty from "../components/pages/projekty/projekty";
 import Technologie from "../components/pages/technologie/technologie";
 import Nastavenia from "../components/pages/nastavenia/nastavenia";
 import Signup from "../components/pages/signup/signup";
+import ZaklPojmy from "../components/pages/zakladnePojmy/zakl_pojmy";
+import RozPravd from "../components/pages/rozdeleniePravdepodobnosti/rozdeleniePravdepodobnosti";
 
 // tuto sa vkladajú iba stránky cez ktoré sa bude preklikávať
 
@@ -33,6 +35,8 @@ function App() {
 				<Route path="/technologie" element={<Technologie />} />
 				<Route path="/nastavenia-uctu" element={<Nastavenia />} />
 				<Route path="/signup" element={<Signup />} />
+				<Route path="/zakl-pojmy" element={<ZaklPojmy />} />
+				<Route path="/roz-pravd" element={<RozPravd />} />
 			</Routes>
 		</div>
 	);

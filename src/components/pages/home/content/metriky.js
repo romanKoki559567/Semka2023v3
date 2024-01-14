@@ -1,8 +1,3 @@
-import React, { useState } from "react";
-import Nav from "../../utils/nav";
-import Hlavicka from "../../utils/hlavicka";
-import Comp from "./compLog";
-
 const Metriky = () => {
 	return (
 		<div>
@@ -24,7 +19,6 @@ const Metriky = () => {
 				</div>
 				<div className="line"></div>
 			</div>
-			;
 		</div>
 	);
 };

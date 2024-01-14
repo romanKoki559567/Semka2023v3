@@ -66,7 +66,7 @@ const Comp = () => {
 					</div>
 
 					<div className="mb-3">
-						<label htmlFor="bDate">
+						<label htmlFor="date">
 							<strong>Dátum Narodenia</strong>
 						</label>
 						<input type="date" className="form-control rounded-0" name="date" onChange={handleInput}></input>
