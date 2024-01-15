@@ -15,6 +15,9 @@ code {
 	font-weight: bolder;
 	margin-bottom: 45px;
 }
+.homePage-main {
+	margin-right: 2rem;
+}
 
 .pod-nadpis {
 	color: #1a2b88;
@@ -60,15 +63,20 @@ code {
 }
 
 .card-menu {
-	padding: 20px 20px 20px 30px;
-	background-color: white;
+	padding: 1rem;
+	background-color: transparent !important;
 	border-radius: 16px;
-	margin-bottom: 20px;
 	margin-right: 20px;
 	border: 1px solid rgb(87, 87, 87);
+	text-decoration: none;
 }
-
-.center-image {
+.card-menu p:hover,
+li:hover {
+	color: #1a2b88;
+}
+.card-menu p {
+	color: #0c0c0d;
+	font-weight: 400;
 }
 
 .homePage {
@@ -200,13 +208,32 @@ code {
 
 .item2 {
 	background-color: white;
-	width: 25%;
+	width: 100%;
 	padding: 1.4rem;
-
 	border-radius: 25px;
 	text-align: center;
 	box-shadow: 5px 5px 39px 0px rgba(0, 0, 0, 0.25);
+	font-weight: 500;
+	/*display: flex;*/
+	/*flex-direction: column;*/
 }
+
+.item3 {
+	background-color: white;
+	width: 100%;
+	padding: 1.4rem;
+	border-radius: 25px;
+	text-align: center;
+	box-shadow: 5px 5px 39px 0px rgba(0, 0, 0, 0.25);
+	font-weight: 500;
+}
+
+.graph-container {
+	height: 100%;
+	overflow-x: auto; /* Allow horizontal scrolling */
+	white-space: nowrap; /* Prevent line breaks */
+}
+
 .title {
 	font-size: 1.5rem;
 	margin-bottom: 2rem;
@@ -214,14 +241,13 @@ code {
 
 .metrika {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
 }
 
 .skills > .metrika > p {
 	font-size: 0.9rem;
-	margin: 0rem 0;
+	margin: 0.2rem 0; /* Adjust as needed */
 }
 .skills > .metrika > p:nth-child(1) {
 	margin-right: 7rem;
@@ -229,15 +255,6 @@ code {
 
 .skills > .metrika {
 	margin: 0.5rem 0;
-}
-
-.item3 {
-	background-color: white;
-	width: 25%;
-	border-radius: 25px;
-	padding: 25px;
-	box-shadow: 5px 5px 39px 0px rgba(0, 0, 0, 0.25);
-	text-align: center;
 }
 
 .profile-photo {
@@ -363,5 +380,8 @@ code {
 	}
 	.homePage {
 		flex-direction: column;
+	}
+	.homePage-main {
+		margin-right: 0;
 	}
 }

@@ -18,15 +18,17 @@ const Graph = () => {
 
 	return (
 		<div className="obsahGrafu card-use">
-			<LineChart width={700} height={250} data={data}>
-				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="i" />
-				<YAxis />
-				<Tooltip />
-				<Legend />
-				<Line type="monotone" dataKey="skutocna" stroke="#4169E1" activeDot={{ r: 8 }} />
-				<Line type="monotone" dataKey="predikovana" stroke="#87CEEB" activeDot={{ r: 8 }} />
-			</LineChart>
+			<div className="graph-container">
+				<LineChart width={700} height={250} data={data}>
+					<CartesianGrid strokeDasharray="3 3" />
+					<XAxis dataKey="i" />
+					<YAxis />
+					<Tooltip />
+					<Legend />
+					<Line type="monotone" dataKey="skutocna" stroke="#4169E1" activeDot={{ r: 8 }} />
+					<Line type="monotone" dataKey="predikovana" stroke="#87CEEB" activeDot={{ r: 8 }} />
+				</LineChart>
+			</div>
 		</div>
 	);
 };

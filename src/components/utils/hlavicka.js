@@ -1,6 +1,4 @@
 import React from "react";
-import phone from "../../images/phone.png";
-import email from "../../images/email.png";
 
 const Hlavicka = () => {
 	return (

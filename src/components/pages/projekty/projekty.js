@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Nav from "../../utils/nav";
 import Hlavicka from "../../utils/hlavicka";
-import Content from "../rozdeleniePravdepodobnosti/content";
+import Content from "./content";
+import Comm from "./commentSystem";
 
 const Projekty = () => {
 	return (
@@ -11,6 +12,7 @@ const Projekty = () => {
 			<div className="pravy-content">
 				<Hlavicka />
 				<Content />
+				<Comm />
 			</div>
 		</div>
 	);

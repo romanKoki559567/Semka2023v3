@@ -3,7 +3,7 @@ import InfoImg from "../../../../images/About.png";
 const Info = () => {
 	return (
 		<div>
-			<div class="item2">
+			<div class="item3">
 				<img src={InfoImg}></img>
 				<p class="italic-text center-text">
 					“Táto webová stránka, vytvorená ako súčasť kurzu VAII na Žilinskej univerzite, kde momentálne študujem, slúži nielen ako prehľad

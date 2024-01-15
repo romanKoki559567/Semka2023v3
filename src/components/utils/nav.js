@@ -5,12 +5,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Nav = () => {
 	const [isMenuOpen, setMenuOpen] = React.useState(true);
+	const [isTechnologieOpen, setTechnologieOpen] = React.useState(false); // New state
 	const isAuthenticated = !!localStorage.getItem("token");
 	const navigate = useNavigate();
 
 	const [values, setValues] = React.useState({
 		name: "",
 	});
+
+	const toggleTechnologie = () => {
+		setTechnologieOpen((prev) => !prev);
+	};
 
 	const [errors, setErrors] = React.useState({});
 
@@ -107,7 +112,7 @@ const Nav = () => {
 						</div>
 					</Link>
 
-					<Link className="link" to="" onClick={() => setCurrentlyOpen("Technologie")}>
+					<Link className="link" to="" onClick={toggleTechnologie}>
 						<div className="nav-button">
 							<svg width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
@@ -156,25 +161,25 @@ const Nav = () => {
 						</div>
 					</Link>
 
-					{currentlyOpen === "Technologie" && (
-						<div class="card-menu">
-							<lu>
-								<li class="">
-									<Link to="/zakl-pojmy" onClick={() => setCurrentlyOpen("#")}>
-										<span>Základné štatistické pojmy</span>
+					{isTechnologieOpen && (
+						<div className="card-menu">
+							<ul>
+								<li className="">
+									<Link to="/zakl-pojmy" onClick={() => setCurrentlyOpen("#")} className="text-decoration-none">
+										<p>Základné štatistické pojmy</p>
 									</Link>
 								</li>
 								<li>
-									<Link to="/roz-pravd" onClick={() => setCurrentlyOpen("#")}>
-										<span>Rozdelenie Pravdepodobnosti</span>
+									<Link to="/roz-pravd" onClick={() => setCurrentlyOpen("#")} className="text-decoration-none">
+										<p>Rozdelenie Pravdepodobnosti</p>
 									</Link>
 								</li>
 								<li>
-									<Link to="/o-mne" onClick={() => setCurrentlyOpen("#")}>
-										<span>Machine learning</span>
+									<Link to="/o-mne" onClick={() => setCurrentlyOpen("#")} className="text-decoration-none">
+										<p>Machine learning</p>
 									</Link>
 								</li>
-							</lu>
+							</ul>
 						</div>
 					)}
 

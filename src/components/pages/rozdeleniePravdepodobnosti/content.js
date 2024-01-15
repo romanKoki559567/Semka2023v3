@@ -84,7 +84,7 @@ const Content = () => {
 				<p>Rozsah: Binomické rozdelenie je definované pre diskrétne hodnoty. Jeho rozsah je od 0 do nn, kde nn je počet pokusov.</p>
 				<p>Pravdepodobnostná Funkcia:</p>
 
-				<img src={binomVz} alt="vzorec binomického rozdelenia" />
+				<img className="" src={binomVz} alt="vzorec binomického rozdelenia" style={{ width: "50%" }} />
 
 				<h4 class="pod-nadpis2">Parametre:</h4>
 				<ul>
@@ -92,11 +92,11 @@ const Content = () => {
 					<li>p: pravdepodobnosť úspechu v jednom pokuse (číslo medzi 0 a 1)</li>
 				</ul>
 
-				<img src={binomMom} alt="Momenty binomického rozdelenia" />
+				<img src={binomMom} alt="Momenty binomického rozdelenia" style={{ width: "20%" }} />
 
 				<h4 class="pod-nadpis2">Vzhľad funkcie:</h4>
 
-				<img src={binomHist} alt="Histogram binomického rozdelenia" />
+				<img src={binomHist} alt="Histogram binomického rozdelenia" style={{ width: "40%" }} />
 			</div>
 		</div>
 	);

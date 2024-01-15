@@ -12,13 +12,28 @@ const Home = () => {
 			<Nav />
 			<div className="pravy-content">
 				<Hlavicka />
-				<Graph />
-				<Metriky />
-				<Ciel />
-				<Info />
+				<div className="homePage-main">
+					<div className="row ">
+						<div className="col-sm">
+							<Graph />
+						</div>
+						<div className="col-sm">
+							<Metriky />
+						</div>
+					</div>
 
+					<div className="row">
+						<div className="col-sm">
+							<Ciel />
+						</div>
+						<div className="col-sm">
+							<Info />
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
 };
+
 export default Home;

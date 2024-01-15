@@ -7,7 +7,6 @@ import Login from "../components/pages/login/login";
 import UserProfile from "../components/pages/userProfile/userProfile";
 import OMne from "../components/pages/oMne/oMne";
 import Projekty from "../components/pages/projekty/projekty";
-import Technologie from "../components/pages/technologie/technologie";
 import Nastavenia from "../components/pages/nastavenia/nastavenia";
 import Signup from "../components/pages/signup/signup";
 import ZaklPojmy from "../components/pages/zakladnePojmy/zakl_pojmy";
@@ -32,7 +31,6 @@ function App() {
 				<Route path="/user-profile" element={<UserProfile />} />
 				<Route path="/o-mne" element={<OMne />} />
 				<Route path="/projekty" element={<Projekty />} />
-				<Route path="/technologie" element={<Technologie />} />
 				<Route path="/nastavenia-uctu" element={<Nastavenia />} />
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/zakl-pojmy" element={<ZaklPojmy />} />

@@ -4,7 +4,7 @@ import axios from "axios";
 const CommentSystem = () => {
 	const [inputKomentar, setInputKomentar] = useState("");
 	const [komentare, setKomentare] = useState([""]);
-	const [userId, setUserId] = useState(null); // Add this line
+	const [userId, setUserId] = useState(null); 
 	const [editingComment, setEditingComment] = useState(null);
 
 	useEffect(() => {
@@ -41,7 +41,6 @@ const CommentSystem = () => {
 			const token = localStorage.getItem("token");
 
 			if (editingComment) {
-				// Update existing comment
 				await axios.put(
 					`http://localhost:8081/editComment/${editingComment.id_comment}`,
 					{ comment: inputKomentar },
@@ -52,7 +51,6 @@ const CommentSystem = () => {
 					}
 				);
 			} else {
-				// Add new comment
 				await axios.post(
 					"http://localhost:8081/postComment",
 					{ comment: inputKomentar },
@@ -64,11 +62,9 @@ const CommentSystem = () => {
 				);
 			}
 
-			// Refresh comments
 			const updatedComments = await axios.get("http://localhost:8081/getKomentare");
 			setKomentare(updatedComments.data);
 
-			// Reset form and editing state
 			setInputKomentar("");
 			setEditingComment(null);
 		} catch (error) {
@@ -86,7 +82,6 @@ const CommentSystem = () => {
 				},
 			});
 
-			// Refresh comments
 			const updatedComments = await axios.get("http://localhost:8081/getKomentare");
 			setKomentare(updatedComments.data);
 		} catch (error) {
@@ -127,7 +122,6 @@ const CommentSystem = () => {
 
 									<div>
 										{userId === komentar.user_id && (
-											// Only render the buttons if the logged-in user's ID matches the user_id of the comment
 											<>
 												<button type="button" className="btn btn-outline-primary" onClick={() => onCommEdit(komentar)}>
 													Upraviť

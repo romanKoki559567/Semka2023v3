@@ -109,21 +109,23 @@ app.patch(
 		});
 	}
 );
-// TODO - post -> delete?
-app.delete("/deleteUser", verifyToken, async (req, res) => {
-	const id = req.userId;
-	const sql = "DELETE FROM users_log WHERE id = ?";
-	const values = [id];
-	//TODO
 
-	db.query(sql, values, (err, result) => {
-		if (err) {
-			console.error("Error deleting user:", err);
-			res.status(500).send(err.message);
-			return;
-		}
-		res.status(200).send("Záznam úspešne odstránený");
-	});
+app.delete("/deleteUser", verifyToken, async (req, res) => {
+    const id = req.userId;
+    const sqlUser = "DELETE FROM users_log WHERE id = ?";
+    const sqlComm = "DELETE FROM comments WHERE user_id = ?";
+    const values = [id];
+
+    try {
+        await db.query(sqlComm, values);
+        await db.query(sqlUser, values);
+
+        res.status(200).send("Komentáre a záznam úspešne odstránené");
+    } catch (err) {
+        console.error("Error deleting user:", err);
+        res.status(500).send(err.message);
+		return;
+    }
 });
 
 app.post(
