@@ -19,6 +19,11 @@ code {
 	margin-right: 2rem;
 }
 
+.tab-heder {
+	padding-left: 22px !important;
+	border-bottom: 0!important;
+}
+
 .pod-nadpis {
 	color: #1a2b88;
 	font-weight: bold;
@@ -247,7 +252,7 @@ li:hover {
 
 .skills > .metrika > p {
 	font-size: 0.9rem;
-	margin: 0.2rem 0; /* Adjust as needed */
+	margin: 0.2rem 0;
 }
 .skills > .metrika > p:nth-child(1) {
 	margin-right: 7rem;

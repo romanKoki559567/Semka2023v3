@@ -1,4 +1,3 @@
-// moje API
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
@@ -64,11 +63,8 @@ app.get("/getUserData", verifyToken, async (req, res) => {
 
 		if (result.length === 0) {
 			res.status(404).json({ error: "Not Found" });
-			// TODO doplniť alert že dal zlé heslo
 			return;
 		}
-
-		// odpoveď
 		const user = result[0];
 		res.json({
 			name: user.meno,
@@ -263,8 +259,26 @@ app.get("/getKomentare", async (req, res) => {
 	});
 });
 
-app.get("/graf-data", async (req, res) => {
+app.get("/graf-data-odch", async (req, res) => {
 	const sql = "SELECT skutocna, predikovana, id AS i FROM p_odchylky LIMIT 50";
+	db.query(sql, (err, result) => {
+		if (err) {
+			console.error("Error fetching data:", err);
+			res.status(500).json({ error: "Internal Server Error" });
+			return;
+		}
+
+		if (result.length === 0) {
+			res.status(404).json({ error: "Not Found" });
+			return;
+		}
+
+		res.status(200).json(result);
+	});
+});
+
+app.get("/graf-data-items", async (req, res) => {
+	const sql = "SELECT price_St AS skutocna, price_CS AS predikovana, id_ AS i FROM market_items LIMIT 50";
 	db.query(sql, (err, result) => {
 		if (err) {
 			console.error("Error fetching data:", err);

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 import Validation from "./loginValidation";
 import axios from "axios";
-import { Formik } from "formik";
 
 const CompLog = () => {
 	const isAuthenticated = !!localStorage.getItem("token");
