@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
 
-const Graph = ({url}) => {
+const Graph = ({ url }) => {
 	const [data, setData] = useState([]);
-	console.log(url)
 
 	useEffect(() => {
 		axios

@@ -69,6 +69,7 @@ app.get("/getUserData", verifyToken, async (req, res) => {
 		res.json({
 			name: user.meno,
 			email: user.mail,
+			password: user.heslo,
 		});
 	});
 });
@@ -78,17 +79,20 @@ app.patch(
 	[
 		check("name").notEmpty().withMessage("Meno nemoze byt prazdne"),
 		check("email").notEmpty().isEmail().normalizeEmail().withMessage("Nespárvne vyplnený email"),
+		check("password").notEmpty().withMessage("Heslo nemôže byť prázdne"),
 	],
 	verifyToken,
 	async (req, res) => {
-		const { name, email } = req.body;
-		const sql = "UPDATE users_log SET meno = ?, mail = ? WHERE id = ?";
+		const { name, email, password } = req.body;
+		const sql = "UPDATE users_log SET meno = ?, mail = ?, heslo= ? WHERE id = ?";
+		const passwordString = String(password);
+		const hashedPassword = await bcrypt.hash(passwordString, saltRounds);
 		const userId = req.userId;
 		if (!userId) {
 			res.status(404).json(`User with id ${userId} doesnt exist`);
 			return;
 		}
-		const values = [name, email, userId];
+		const values = [name, email, hashedPassword, userId];
 		const errors = validationResult(req);
 
 		if (!errors.isEmpty()) {
@@ -107,21 +111,21 @@ app.patch(
 );
 
 app.delete("/deleteUser", verifyToken, async (req, res) => {
-    const id = req.userId;
-    const sqlUser = "DELETE FROM users_log WHERE id = ?";
-    const sqlComm = "DELETE FROM comments WHERE user_id = ?";
-    const values = [id];
+	const id = req.userId;
+	const sqlUser = "DELETE FROM users_log WHERE id = ?";
+	const sqlComm = "DELETE FROM comments WHERE user_id = ?";
+	const values = [id];
 
-    try {
-        await db.query(sqlComm, values);
-        await db.query(sqlUser, values);
+	try {
+		await db.query(sqlComm, values);
+		await db.query(sqlUser, values);
 
-        res.status(200).send("Komentáre a záznam úspešne odstránené");
-    } catch (err) {
-        console.error("Error deleting user:", err);
-        res.status(500).send(err.message);
+		res.status(200).send("Komentáre a záznam úspešne odstránené");
+	} catch (err) {
+		console.error("Error deleting user:", err);
+		res.status(500).send(err.message);
 		return;
-    }
+	}
 });
 
 app.post(
@@ -149,7 +153,6 @@ app.post(
 			}
 
 			if (checkEmailResult.length > 0) {
-				// TODO alert
 				return res.status(400).json({ error: "Email already exists" });
 			}
 
@@ -208,8 +211,9 @@ app.post("/signin", async (req, res) => {
 app.post("/postComment", verifyToken, async (req, res) => {
 	const userId = req.userId;
 	const inputKomentar = req.body.comment; // Use req.body.comment to get the comment value
+	const project_id = req.body.projectID;
 	const sql = "INSERT INTO comments(date, user_id, id_projektu, comment) VALUES (?,?,?,?)";
-	const values = [new Date(), userId, 1, inputKomentar];
+	const values = [new Date(), userId, project_id, inputKomentar];
 
 	db.query(sql, values, (err, result) => {
 		if (err) {
@@ -241,8 +245,12 @@ app.put("/editComment/:id_comment", verifyToken, async (req, res) => {
 });
 
 app.get("/getKomentare", async (req, res) => {
-	const sql = "SELECT id_comment, comment, user_id,  date, meno FROM comments JOIN users_log ON user_id = id";
-	db.query(sql, (err, result) => {
+	const { projectID } = req.query;
+
+	const sql = "SELECT id_comment, comment, user_id,  date, meno FROM comments JOIN users_log ON user_id = id WHERE id_projektu = ?";
+	const values = [projectID];
+
+	db.query(sql, values, (err, result) => {
 		if (err) {
 			console.error("Error fetching data:", err);
 			res.status(500).json({ error: "Internal Server Error" });
@@ -251,7 +259,7 @@ app.get("/getKomentare", async (req, res) => {
 
 		if (result.length === 0) {
 			res.status(404).json({ error: "Not Found" });
-			// TODO doplniť alert že dal zlé heslo
+			// TODO: doplniť alert že dal zlé heslo
 			return;
 		}
 
@@ -307,7 +315,7 @@ app.get("/getUserID", verifyToken, (req, res) => {
 
 app.delete("/deleteComm/:id_comment", verifyToken, async (req, res) => {
 	const id = req.params.id_comment;
-	console.log("spuštam 'onCommDelete' comment", id);
+	console.log("spuštam 'onCommDelete' commentF", id);
 	const sql = "DELETE FROM comments WHERE id_comment = ?";
 
 	db.query(sql, [id], (err, result) => {

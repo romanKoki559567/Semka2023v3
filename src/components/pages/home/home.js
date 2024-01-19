@@ -13,9 +13,9 @@ const Home = () => {
 			<div className="pravy-content">
 				<Hlavicka />
 				<div className="homePage-main">
-					<div className="row ">
+					<div className="row mb-4">
 						<div className="col-sm">
-							<Graph />
+							<Graph url={"graf-data-odch"} />
 						</div>
 						<div className="col-sm">
 							<Metriky />

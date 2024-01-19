@@ -1,70 +1,89 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Graph from "../home/content/graph";
 import Comm from "./commentSystem";
 
-// TODO - pridať veci o projekte
 const Content = () => {
 	const [activeTab, setActiveTab] = useState(1);
 
-	function renderContent() {
+	const handleTabChange = (tabNumber) => {
+		setActiveTab(tabNumber);
+	};
+
+	const renderContent = () => {
 		switch (activeTab) {
 			case 1:
 				return (
 					<div className="container">
 						<Graph url={"graf-data-odch"} />
-						graf 1
-						<Comm />
+						<div className="card-use-projects mt-4">
+							<h2 className="pod-nadpis2">Binomické rozdelenie pravdepodobností</h2>
+							<p>
+								Popis a využitie: Binomické rozdelenie sa využíva na modelovanie počtu úspechov v pevnom počte nezávislých pokusov, kde
+								každý pokus má len dva možné výsledky (často označované ako úspech a neúspech). Toto rozdelenie bolo vymyslené na štúdium
+								pravdepodobnostných procesov, kde je zaujímavé vedieť, ako často sa môže vyskytnúť určitý počet úspechov pri opakovaných
+								pokusoch, ako napríklad pri hodoch mincou alebo v medicínskych testoch.
+							</p>
+							<p>Rozsah: Binomické rozdelenie je definované pre diskrétne hodnoty. Jeho rozsah je od 0 do nn, kde nn je počet pokusov.</p>
+							<p>Pravdepodobnostná Funkcia:</p>
+						</div>
 					</div>
 				);
 			case 2:
 				return (
 					<div className="container">
 						<Graph url={"graf-data-items"} />
-						graf 2
-						<Comm />
+						<div className="card-use-projects mt-4">
+							<h2 className="pod-nadpis">Diskrétne rozdelenia</h2>
+							<ul>
+								<li className="odsad">
+									<strong>Binomické rozdelenie</strong> (binomial distribution)
+								</li>
+								<li className="odsad">
+									<strong>Poissonovo rozdelenie</strong> (Poisson distribution)
+								</li>
+							</ul>
+						</div>
 					</div>
 				);
 			case 3:
 				return (
 					<div className="container">
-						<Graph url={"dfsdfds"} />
-						graf 3
-						<Comm />
+						<Graph url={"graf-data-odch"} />
+						<div className="card-use-projects mt-4">
+							<h2 className="pod-nadpis">Spojité rozdelenia</h2>
+							<ul>
+								<li className="odsad">
+									<strong>Normálne rozdelenie</strong> (normal distribution)
+								</li>
+								<li className="odsad">
+									<strong>Exponenciálne rozdelenie</strong> (exponential distribution)
+								</li>
+							</ul>
+						</div>
 					</div>
 				);
-			case 4:
-				return <>4</>;
 			default:
 				return <>def</>;
 		}
-	}
+	};
 
 	return (
-		<div class="container">
+		<div className="container">
 			<ul className="nav nav-tabs tab-heder">
-				<li onClick={() => setActiveTab(1)} className="nav-item">
-					<a className={`nav-link ${activeTab === 1 && "active"}`} aria-current="#" href="#">
-						Tab 1
-					</a>
+				<li onClick={() => handleTabChange(1)} className="nav-item">
+					<div className={`nav-link ${activeTab === 1 && "active"}`}>Projekt 1</div>
 				</li>
-				<li onClick={() => setActiveTab(2)} className="nav-item">
-					<a className={`nav-link  ${activeTab === 2 && "active"}`} href="#">
-						Tab 2
-					</a>
+				<li onClick={() => handleTabChange(2)} className="nav-item">
+					<div className={`nav-link  ${activeTab === 2 && "active"}`}>Projekt 2</div>
 				</li>
-				<li onClick={() => setActiveTab(3)} className="nav-item">
-					<a className={`nav-link ${activeTab === 3 && "active"}`} href="#">
-						Tab 3
-					</a>
-				</li>
-				<li onClick={() => setActiveTab(4)} className="nav-item">
-					<a className={`nav-link  ${activeTab === 4 && "active"}`} href="#" tabIndex="-1" aria-disabled="true">
-						Tab 4
-					</a>
+				<li onClick={() => handleTabChange(3)} className="nav-item">
+					<div className={`nav-link ${activeTab === 3 && "active"}`}>Projekt 3</div>
 				</li>
 			</ul>
 
 			{renderContent()}
+
+			<Comm projectID={activeTab} handleTabChange={handleTabChange} />
 		</div>
 	);
 };

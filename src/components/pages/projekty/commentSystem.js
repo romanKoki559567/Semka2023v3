@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const CommentSystem = () => {
+const CommentSystem = ({ projectID, handleTabChange }) => {
 	const [inputKomentar, setInputKomentar] = useState("");
 	const [komentare, setKomentare] = useState([""]);
-	const [userId, setUserId] = useState(null); 
+	const [userId, setUserId] = useState(null);
 	const [editingComment, setEditingComment] = useState(null);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
-		
+
 		axios
 			.get("http://localhost:8081/getUserID", {
 				headers: {
@@ -23,16 +23,18 @@ const CommentSystem = () => {
 				console.error("Chyba pri načítaní userID", err);
 			});
 
-		// Fetch comments when the component mounts
 		axios
-			.get("http://localhost:8081/getKomentare")
+			.get("http://localhost:8081/getKomentare", {
+				params: { projectID: projectID },
+			})
 			.then((res) => {
 				setKomentare(res.data);
 			})
 			.catch((err) => {
+				setKomentare(null);
 				console.error("Chyba pri načítaní", err);
 			});
-	}, []);
+	});
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -53,7 +55,10 @@ const CommentSystem = () => {
 			} else {
 				await axios.post(
 					"http://localhost:8081/postComment",
-					{ comment: inputKomentar },
+					{
+						comment: inputKomentar,
+						projectID: projectID,
+					},
 					{
 						headers: {
 							Authorization: `${token}`,
@@ -62,7 +67,13 @@ const CommentSystem = () => {
 				);
 			}
 
-			const updatedComments = await axios.get("http://localhost:8081/getKomentare");
+			setInputKomentar("");
+
+			const updatedComments = await axios.get("http://localhost:8081/getKomentare", {
+				params: {
+					projectID: projectID,
+				},
+			});
 			setKomentare(updatedComments.data);
 
 			setInputKomentar("");
@@ -82,7 +93,11 @@ const CommentSystem = () => {
 				},
 			});
 
-			const updatedComments = await axios.get("http://localhost:8081/getKomentare");
+			const updatedComments = await axios.get("http://localhost:8081/getKomentare", {
+				params: {
+					projectID: projectID,
+				},
+			});
 			setKomentare(updatedComments.data);
 		} catch (error) {
 			console.error("Chyba pri mazaní komentára", error);
@@ -94,17 +109,17 @@ const CommentSystem = () => {
 		setEditingComment(comment);
 	};
 
-	//console.log(userId);
-
 	return (
-		<div>
+		<div className="container mb-5">
 			<div>
 				{komentare != null &&
 					komentare.length > 0 &&
 					komentare.map((komentar) => (
 						<div className="card mt-2" key={komentar.id_comment}>
-							<div className="card-body d-flex justify-content-between">
-								<ul>{komentar.comment} </ul>
+							<div className="card-body d-flex justify-content-between flex-wrap">
+								<div className="comm-form" style={{ maxHeight: "100px", overflowY: "auto" }}>
+									{komentar.comment}
+								</div>
 								<div className="d-md-flex justify-content-md-end flex-culum d-flex flex-column">
 									<div className="d-flex gap-3 flex-nowrap">
 										<p> {komentar.meno}</p>
@@ -137,8 +152,7 @@ const CommentSystem = () => {
 						</div>
 					))}
 			</div>
-
-			<form onSubmit={handleSubmit}>
+			<form className=" mt-4" onSubmit={handleSubmit}>
 				<label htmlFor="exampleFormControlTextarea1" className="form-label">
 					<h3>Komentár</h3>
 				</label>
@@ -149,10 +163,13 @@ const CommentSystem = () => {
 					value={inputKomentar}
 					onChange={(e) => setInputKomentar(e.target.value)}
 					placeholder="Napíšte váš komentár..."
+					maxLength={150}
 				/>
-				<button className="btn btn-primary " type="submit">
+
+				<button className="btn btn-primary mt-3" type="submit">
 					{editingComment ? "Upraviť komentár" : "Odoslať komentár"}
 				</button>
+				<small className="text-muted character-count">{inputKomentar.length}/150 znakov</small>
 			</form>
 		</div>
 	);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Location = () => {
 	return (
-		<div class="card-use">
+		<div className="card-use-about">
 			<div style={{ width: "100%" }}>
 				<iframe
 					style={{ width: "100%", height: "300px" }}

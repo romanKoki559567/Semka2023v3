@@ -100,42 +100,42 @@ const Nav = () => {
 								<path
 									d="M7.12917 20.9733H21.8588C24.1546 20.9733 25.3629 19.7649 25.3629 17.4691V2.84827H3.61292V17.4691C3.625 19.7649 4.83334 20.9733 7.12917 20.9733Z"
 									stroke="#555555"
-									stroke-width="1.8125"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.8125"
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M2.41736 2.84827H26.584"
 									stroke="#555555"
-									stroke-width="1.8125"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.8125"
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M9.66736 27.0149L14.5007 24.5983V20.9733"
 									stroke="#555555"
-									stroke-width="1.8125"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.8125"
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M19.3333 27.0149L14.5 24.5983"
 									stroke="#555555"
-									stroke-width="1.8125"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.8125"
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M9.0625 13.7233L12.8687 10.5453C13.1708 10.2916 13.5696 10.3641 13.775 10.7024L15.225 13.1191C15.4304 13.4574 15.8292 13.5179 16.1313 13.2762L19.9375 10.0983"
 									stroke="#555555"
-									stroke-width="1.8125"
-									stroke-miterlimit="10"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.8125"
+									strokeMiterlimit="10"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 							</svg>
 
@@ -156,11 +156,7 @@ const Nav = () => {
 										<p>Rozdelenie Pravdepodobnosti</p>
 									</Link>
 								</li>
-								<li>
-									<Link to="/o-mne" onClick={() => setCurrentlyOpen("#")} className="text-decoration-none">
-										<p>Machine learning</p>
-									</Link>
-								</li>
+								
 							</ul>
 						</div>
 					)}
@@ -171,26 +167,26 @@ const Nav = () => {
 								<path
 									d="M19.8334 24.9309H8.16671C3.50004 24.9309 2.33337 23.7642 2.33337 19.0976V9.76424C2.33337 5.09757 3.50004 3.93091 8.16671 3.93091H19.8334C24.5 3.93091 25.6667 5.09757 25.6667 9.76424V19.0976C25.6667 23.7642 24.5 24.9309 19.8334 24.9309Z"
 									stroke="#555555"
-									stroke-width="1.75"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.75"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
-								<path d="M16.3334 9.76428H22.1667" stroke="#555555" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-								<path d="M17.5 14.4309H22.1667" stroke="#555555" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-								<path d="M19.8334 19.0975H22.1667" stroke="#555555" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M16.3334 9.76428H22.1667" stroke="#555555" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+								<path d="M17.5 14.4309H22.1667" stroke="#555555" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+								<path d="M19.8334 19.0975H22.1667" stroke="#555555" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
 								<path
 									d="M9.91721 13.6025C11.0835 13.6025 12.0289 12.6571 12.0289 11.4908C12.0289 10.3246 11.0835 9.37915 9.91721 9.37915C8.75097 9.37915 7.80554 10.3246 7.80554 11.4908C7.80554 12.6571 8.75097 13.6025 9.91721 13.6025Z"
 									stroke="#555555"
-									stroke-width="1.75"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.75"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 								<path
 									d="M14 19.4823C13.8367 17.7907 12.495 16.4607 10.8034 16.309C10.22 16.2507 9.62504 16.2507 9.03004 16.309C7.33837 16.4723 5.99671 17.7907 5.83337 19.4823"
 									stroke="#555555"
-									stroke-width="1.75"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="1.75"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 							</svg>
 
@@ -215,21 +211,23 @@ const Nav = () => {
 							</div>
 						</Link>
 					) : null}
-					<div className="nav-line"></div>
+					{isAuthenticated ? <div className="nav-line"></div> : null}
+					{isAuthenticated ? (
+						<Link className="link" to="/projekty" onClick={() => setCurrentlyOpen("projekty")}>
+							<div className="nav-button">
+								<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M22.0187 8.89214H18.2078V5.92808C18.2078 4.69275 17.7171 3.50801 16.8435 2.63451C15.97 1.761 14.7853 1.27026 13.55 1.27026C12.3146 1.27026 11.1299 1.761 10.2564 2.63451C9.3829 3.50801 8.89216 4.69275 8.89216 5.92808V8.89214H5.08123C4.74432 8.89214 4.42121 9.02598 4.18298 9.2642C3.94475 9.50243 3.81091 9.82554 3.81091 10.1625V22.0187C3.81091 22.3556 3.94475 22.6787 4.18298 22.9169C4.42121 23.1552 4.74432 23.289 5.08123 23.289H22.0187C22.3556 23.289 22.6787 23.1552 22.917 22.9169C23.1552 22.6787 23.289 22.3556 23.289 22.0187V10.1625C23.289 9.82554 23.1552 9.50243 22.917 9.2642C22.6787 9.02598 22.3556 8.89214 22.0187 8.89214ZM9.73904 5.92808C9.73904 4.91735 10.1405 3.94803 10.8552 3.23334C11.5699 2.51865 12.5393 2.11714 13.55 2.11714C14.5607 2.11714 15.53 2.51865 16.2447 3.23334C16.9594 3.94803 17.3609 4.91735 17.3609 5.92808V8.89214H9.73904V5.92808ZM22.4422 22.0187C22.4422 22.131 22.3976 22.2387 22.3181 22.3181C22.2387 22.3975 22.131 22.4421 22.0187 22.4421H5.08123C4.96892 22.4421 4.86122 22.3975 4.78181 22.3181C4.7024 22.2387 4.65779 22.131 4.65779 22.0187V10.1625C4.65779 10.0501 4.7024 9.94245 4.78181 9.86304C4.86122 9.78363 4.96892 9.73901 5.08123 9.73901H22.0187C22.131 9.73901 22.2387 9.78363 22.3181 9.86304C22.3976 9.94245 22.4422 10.0501 22.4422 10.1625V22.0187ZM14.3969 16.0906C14.3969 16.2581 14.3472 16.4218 14.2541 16.5611C14.1611 16.7003 14.0288 16.8089 13.8741 16.873C13.7193 16.9371 13.549 16.9539 13.3848 16.9212C13.2205 16.8885 13.0696 16.8078 12.9511 16.6894C12.8327 16.571 12.7521 16.4201 12.7194 16.2558C12.6867 16.0915 12.7035 15.9212 12.7676 15.7665C12.8317 15.6117 12.9402 15.4795 13.0795 15.3864C13.2187 15.2934 13.3825 15.2437 13.55 15.2437C13.7746 15.2437 13.99 15.3329 14.1488 15.4917C14.3076 15.6506 14.3969 15.866 14.3969 16.0906Z"
+										fill="#555555"
+									/>
+								</svg>
 
-					<Link className="link" to="/projekty" onClick={() => setCurrentlyOpen("projekty")}>
-						<div className="nav-button">
-							<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M22.0187 8.89214H18.2078V5.92808C18.2078 4.69275 17.7171 3.50801 16.8435 2.63451C15.97 1.761 14.7853 1.27026 13.55 1.27026C12.3146 1.27026 11.1299 1.761 10.2564 2.63451C9.3829 3.50801 8.89216 4.69275 8.89216 5.92808V8.89214H5.08123C4.74432 8.89214 4.42121 9.02598 4.18298 9.2642C3.94475 9.50243 3.81091 9.82554 3.81091 10.1625V22.0187C3.81091 22.3556 3.94475 22.6787 4.18298 22.9169C4.42121 23.1552 4.74432 23.289 5.08123 23.289H22.0187C22.3556 23.289 22.6787 23.1552 22.917 22.9169C23.1552 22.6787 23.289 22.3556 23.289 22.0187V10.1625C23.289 9.82554 23.1552 9.50243 22.917 9.2642C22.6787 9.02598 22.3556 8.89214 22.0187 8.89214ZM9.73904 5.92808C9.73904 4.91735 10.1405 3.94803 10.8552 3.23334C11.5699 2.51865 12.5393 2.11714 13.55 2.11714C14.5607 2.11714 15.53 2.51865 16.2447 3.23334C16.9594 3.94803 17.3609 4.91735 17.3609 5.92808V8.89214H9.73904V5.92808ZM22.4422 22.0187C22.4422 22.131 22.3976 22.2387 22.3181 22.3181C22.2387 22.3975 22.131 22.4421 22.0187 22.4421H5.08123C4.96892 22.4421 4.86122 22.3975 4.78181 22.3181C4.7024 22.2387 4.65779 22.131 4.65779 22.0187V10.1625C4.65779 10.0501 4.7024 9.94245 4.78181 9.86304C4.86122 9.78363 4.96892 9.73901 5.08123 9.73901H22.0187C22.131 9.73901 22.2387 9.78363 22.3181 9.86304C22.3976 9.94245 22.4422 10.0501 22.4422 10.1625V22.0187ZM14.3969 16.0906C14.3969 16.2581 14.3472 16.4218 14.2541 16.5611C14.1611 16.7003 14.0288 16.8089 13.8741 16.873C13.7193 16.9371 13.549 16.9539 13.3848 16.9212C13.2205 16.8885 13.0696 16.8078 12.9511 16.6894C12.8327 16.571 12.7521 16.4201 12.7194 16.2558C12.6867 16.0915 12.7035 15.9212 12.7676 15.7665C12.8317 15.6117 12.9402 15.4795 13.0795 15.3864C13.2187 15.2934 13.3825 15.2437 13.55 15.2437C13.7746 15.2437 13.99 15.3329 14.1488 15.4917C14.3076 15.6506 14.3969 15.866 14.3969 16.0906Z"
-									fill="#555555"
-								/>
-							</svg>
-
-							<span>Projekty</span>
-						</div>
-					</Link>
+								<span>Projekty</span>
+							</div>
+						</Link>
+					) : null}
 				</div>
+
 				<Link className="user-button" to={isAuthenticated ? "/" : "/login"} onClick={() => setCurrentlyOpen("projekty")}>
 					<div className="user-button" onClick={isAuthenticated ? logout : null}>
 						<img src={user} alt="lock" width={50} height={50} />

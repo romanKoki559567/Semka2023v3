@@ -10,7 +10,7 @@ const Nastavenia = () => {
 	const [values, setValues] = useState({
 		name: "",
 		email: "",
-		heslo: "",
+		password: "",
 	});
 
 	const navigate = useNavigate();
@@ -21,10 +21,8 @@ const Nastavenia = () => {
 	};
 
 	const handleSubmit = async (event) => {
-		console.log("spuštam 'handleSubmit' sing", values);
 		event.preventDefault();
-		setErrors(Validation(errors));
-		console.log("validácia settings: ", values);
+		setErrors(Validation(values));
 
 		try {
 			const token = localStorage.getItem("token");
@@ -97,7 +95,15 @@ const Nastavenia = () => {
 										<label htmlFor="name">
 											<strong>Používatelské meno</strong>{" "}
 										</label>
-										<input type="text" placeholder="Meno" className="form-control rounded-0" name="name" onChange={handleInput}></input>
+										<input
+											type="text"
+											placeholder="Meno"
+											className="form-control rounded-0"
+											name="name"
+											onChange={handleInput}
+											value={values.name}
+											autoComplete="username"
+										></input>
 										{errors.name && <span className="text-danger">{errors.name}</span>}
 									</div>
 
@@ -112,6 +118,7 @@ const Nastavenia = () => {
 											name="email"
 											onChange={handleInput}
 											value={values.email}
+											autoComplete="email"
 										></input>
 										{errors.email && <span className="text-danger">{errors.email}</span>}
 									</div>
@@ -126,21 +133,9 @@ const Nastavenia = () => {
 											className="form-control rounded-0"
 											name="password"
 											onChange={handleInput}
+											autoComplete="current-password"
 										></input>
 										{errors.password && <span className="text-danger">{errors.password}</span>}
-									</div>
-
-									<div className="mb-3">
-										<label htmlFor="fotka">
-											<strong>Profilová fotka</strong>
-										</label>
-										<input
-											type="file"
-											className="form-control"
-											id="inputGroupFile04"
-											aria-describedby="inputGroupFileAddon04"
-											aria-label="Upload"
-										></input>
 									</div>
 
 									<button className="btn btn-success border w-100 rounded-0">

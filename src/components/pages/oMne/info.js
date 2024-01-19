@@ -8,7 +8,7 @@ const info = () => {
 		<div className="container">
 			<div>
 				<div className="row ">
-					<div className="card-use col-sm-3 d-flex flex-column align-items-center">
+					<div className="card-use-about col-sm-3 d-flex flex-column align-items-center">
 						<img src={Ja} alt="Roman Koki" />
 
 						<div className="text-center mt-3">
@@ -22,11 +22,11 @@ const info = () => {
 						</div>
 					</div>
 
-					<div class="card-use col-sm">
-						<div class="row">
-							<div class="vzdelanie-skusenosti col-sm">
+					<div className="card-use-about col-sm">
+						<div className="row">
+							<div className="vzdelanie-skusenosti col-sm">
 								<p>
-									<strong class="modra">PRACOVNÉ SKÚSENOSTI</strong>
+									<strong className="modra">PRACOVNÉ SKÚSENOSTI</strong>
 								</p>
 								<p>
 									<strong>FAKTURAČNÝ A KOMUNIKAČNÝ PRACOVNÍK</strong>
@@ -37,7 +37,7 @@ const info = () => {
 								</p>
 								<p>REMYS / TRENČÍN, SLOVENSKÁ REPUBLIKA / JÚN 2021 - AUGUST 2021</p>
 								<p>
-									<strong class="modra">VZDELANIE</strong>
+									<strong className="modra">VZDELANIE</strong>
 								</p>
 								<p>
 									<strong>FAKULTA RIADENIA A INFORMATIKY</strong>
@@ -49,16 +49,16 @@ const info = () => {
 								<p>Technické lýceum Bánovce nad Bebravou, Slovenská republika / September 2016 - Jún 2020</p>
 							</div>
 
-							<div class="jazyk-skills col-sm">
-								<p class="modra">
+							<div className="jazyk-skills col-sm">
+								<p className="modra">
 									<strong>JAZYKY</strong>
 								</p>
 								<p>Mierne pokročilý (B1)</p>
 
-								<p class="modra">
+								<p className="modra">
 									<strong>Skills</strong>
 								</p>
-								<lu>
+								<ul>
 									<li>
 										<strong>C++</strong>
 									</li>
@@ -86,16 +86,16 @@ const info = () => {
 									<li>
 										<strong>React</strong>
 									</li>
-								</lu>
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row ">
-					<div class="card-use col-sm">
-						<div class="dopln-info ">
+				<div className="row ">
+					<div className="card-use-about col-sm">
+						<div className="dopln-info ">
 							<p>
-								<strong class="nadpis-hlavny">DOPLŇUJÚCE INFORMÁCIE</strong>
+								<strong className="nadpis-hlavny">DOPLŇUJÚCE INFORMÁCIE</strong>
 							</p>
 							<p>
 								Plánujem využiť lineárnu regresiu na predikciu cien, oblasť, ktorá ma veľmi zaujíma. Cieľom je rozvíjať vlastný softvér, aby
@@ -104,9 +104,9 @@ const info = () => {
 							</p>
 						</div>
 
-						<div class="zaujmy">
+						<div className="zaujmy">
 							<p>
-								<strong class="nadpis-hlavny">ZÁUJMY A KONÍČKY</strong>
+								<strong className="nadpis-hlavny">ZÁUJMY A KONÍČKY</strong>
 							</p>
 							<p>
 								Plánujem využiť lineárnu regresiu na predikciu cien, oblasť, ktorá ma veľmi zaujíma. Cieľom je rozvíjať vlastný softvér, aby
