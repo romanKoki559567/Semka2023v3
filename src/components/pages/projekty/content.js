@@ -16,15 +16,7 @@ const Content = () => {
 					<div className="container">
 						<Graph url={"graf-data-odch"} />
 						<div className="card-use-projects mt-4">
-							<h2 className="pod-nadpis2">Binomické rozdelenie pravdepodobností</h2>
-							<p>
-								Popis a využitie: Binomické rozdelenie sa využíva na modelovanie počtu úspechov v pevnom počte nezávislých pokusov, kde
-								každý pokus má len dva možné výsledky (často označované ako úspech a neúspech). Toto rozdelenie bolo vymyslené na štúdium
-								pravdepodobnostných procesov, kde je zaujímavé vedieť, ako často sa môže vyskytnúť určitý počet úspechov pri opakovaných
-								pokusoch, ako napríklad pri hodoch mincou alebo v medicínskych testoch.
-							</p>
-							<p>Rozsah: Binomické rozdelenie je definované pre diskrétne hodnoty. Jeho rozsah je od 0 do nn, kde nn je počet pokusov.</p>
-							<p>Pravdepodobnostná Funkcia:</p>
+							<h2 className="pod-nadpis">1# MOMENTÁLNE NEDOSTUPNÉ</h2>
 						</div>
 					</div>
 				);
@@ -33,15 +25,7 @@ const Content = () => {
 					<div className="container">
 						<Graph url={"graf-data-items"} />
 						<div className="card-use-projects mt-4">
-							<h2 className="pod-nadpis">Diskrétne rozdelenia</h2>
-							<ul>
-								<li className="odsad">
-									<strong>Binomické rozdelenie</strong> (binomial distribution)
-								</li>
-								<li className="odsad">
-									<strong>Poissonovo rozdelenie</strong> (Poisson distribution)
-								</li>
-							</ul>
+							<h2 className="pod-nadpis">2# MOMENTÁLNE NEDOSTUPNÉ </h2>
 						</div>
 					</div>
 				);
@@ -50,15 +34,7 @@ const Content = () => {
 					<div className="container">
 						<Graph url={"graf-data-odch"} />
 						<div className="card-use-projects mt-4">
-							<h2 className="pod-nadpis">Spojité rozdelenia</h2>
-							<ul>
-								<li className="odsad">
-									<strong>Normálne rozdelenie</strong> (normal distribution)
-								</li>
-								<li className="odsad">
-									<strong>Exponenciálne rozdelenie</strong> (exponential distribution)
-								</li>
-							</ul>
+							<h2 className="pod-nadpis">3# MOMENTÁLNE NEDOSTUPNÉ</h2>
 						</div>
 					</div>
 				);

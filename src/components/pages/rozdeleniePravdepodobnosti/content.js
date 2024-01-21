@@ -98,9 +98,7 @@ const Content = () => {
 				</p>
 
 				<p>
-					<span className="podciarknutie-text modra">Využitie:</span> Toto rozdelenie je pozorovateľné pri rôznych aktivitách, ako je hod
-					kockami, kde každé číslo má rovnakú šancu na padnutie, pri výbere jedinečného predmetu z viacerých jedinečných predmetov, kde
-					každý predmet má rovnakú pravdepodobnosť výberu, alebo pri losovaní tomboly, kde má každý lístok rovnakú šancu byť vybraný.
+					<span className="podciarknutie-text modra">Využitie:</span>
 				</p>
 
 				<p>Tak tiež sa používa v tedy ak vieme o tom aké realizácie môže nadobúdať náhodná premenná ale nevieme jej rozdelenie.</p>
@@ -134,9 +132,8 @@ const Content = () => {
 				</p>
 
 				<p>
-					<span className="podciarknutie-text modra">Využitie:</span> Toto rozdelenie je pozorovateľné pri rôznych aktivitách, ako je hod
-					kockami, kde každé číslo má rovnakú šancu na padnutie, pri výbere jedinečného predmetu z viacerých jedinečných predmetov, kde
-					každý predmet má rovnakú pravdepodobnosť výberu, alebo pri losovaní tomboly, kde má každý lístok rovnakú šancu byť vybraný.
+					<span className="podciarknutie-text modra">Využitie:</span> Napríklad pri testovaní účinnosti nového lieku alebo terapie. Úspech
+					môže znamenať, že pacient reaguje na liečbu, zatiaľ čo neúspech znamená opak.
 				</p>
 
 				<p>Tak tiež sa používa v tedy ak vieme o tom aké realizácie môže nadobúdať náhodná premenná ale nevieme jej rozdelenie.</p>
@@ -157,15 +154,15 @@ const Content = () => {
 					</li>
 				</ul>
 
-				<img alt="Momenty DRR rozdelenia" style={{ width: "20%" }} />
+				<img src="" alt="Momenty DRR rozdelenia" style={{ width: "20%" }} />
 
 				<h4 className="pod-nadpis2">Vzhľad funkcie:</h4>
 
-				<img src={binomHist} alt="Histogram binomického rozdelenia" style={{ width: "40%" }} />
+				<img src="" alt="Histogram binomického rozdelenia" style={{ width: "40%" }} />
 
 				<h3 className="pod-nadpis2">Binomické rozdelenie pravdepodobností</h3>
 				<p>
-					Popis a využitie: Binomické rozdelenie sa využíva na modelovanie počtu úspechov v pevnom počte nezávislých pokusov, kde každý
+					Popis: Binomické rozdelenie sa využíva na modelovanie počtu úspechov v pevnom počte nezávislých pokusov, kde každý
 					pokus má len dva možné výsledky (často označované ako úspech a neúspech). Toto rozdelenie bolo vymyslené na štúdium
 					pravdepodobnostných procesov, kde je zaujímavé vedieť, ako často sa môže vyskytnúť určitý počet úspechov pri opakovaných pokusoch,
 					ako napríklad pri hodoch mincou alebo v medicínskych testoch.
@@ -187,6 +184,18 @@ const Content = () => {
 
 				<img src={binomHist} alt="Histogram binomického rozdelenia" style={{ width: "40%" }} />
 			</div>
+
+
+
+
+
+
+
+
+
+
+
+			
 		</div>
 	);
 };
